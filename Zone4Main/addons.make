@@ -1,0 +1,9 @@
+ofxNetwork
+ofxOsc
+ofxXmlSettings
+ofxAnimatable
+ofxBezierWarp
+ofxImageSequence
+ofxOpenSteer
+ofxProjectorBlend
+ofxUI
