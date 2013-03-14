@@ -192,7 +192,7 @@ public:
 			
 			if( bSetup)
 			{
-				if(isCoolDown() )
+//				if(isCoolDown() )
 				{
 					if(key==OF_KEY_RIGHT)
 					{
@@ -269,7 +269,39 @@ public:
 	}
 	bool isCoolDown()
 	{
-		abs(coolDown -ofGetElapsedTimef())>DURATION;
+		return  abs(coolDown -ofGetElapsedTimef())>DURATION;
+	}
+	void gotoPage(int page_)
+	{
+		int index = 0;
+
+		for(int j =0 ; j < myimage2.size(); j++)
+		{
+			for(int  i = 0 ; i < myimage2[j].images.size() ;i ++)
+			{
+				
+				if(index==page_)
+				{
+					prevPage = currentPage;
+					prevCategory = category;
+
+					currentPage = j;
+					category = i;
+					coolDown = ofGetElapsedTimef();
+					ofLogVerbose("PanoApp") << "currentPage " << currentPage;
+					vector<MyImagesWithAnimation>::iterator it1;
+
+					for (it1=myimage1.begin(); it1!=myimage1.end(); it1++) {
+						MyImagesWithAnimation *a = &(*it1);
+						a->animation.animateTo( -currentPage*a->step);
+
+					}
+					currentPageX.animateTo(-currentPage*WIDTH);
+				}
+				index++;
+			}
+		}
+		
 	}
 
 	vector<MyImagesWithAnimation> myimage1;

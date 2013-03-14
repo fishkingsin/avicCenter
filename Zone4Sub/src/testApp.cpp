@@ -23,7 +23,15 @@ void testApp::messageUpdated(ofMessage &msg)
 	{
 		pano.keyPressed(OF_KEY_RIGHT);
 	}
-	   
+	else if (msg.message.find("ZONE_4_MAIN_")!=string::npos)
+	{
+		int start_idx = msg.message.find("ZONE_4_MAIN_");
+		string sub = msg.message.substr(string("ZONE_4_MAIN_").length(),string::npos);
+		ofLogVerbose()<<sub;
+		int page_ = atoi(sub.c_str());
+		ofLogVerbose("messageUpdated") << "should go to page "<< page_;
+		pano.gotoPage( page_);
+	}
 }
 
 //--------------------------------------------------------------

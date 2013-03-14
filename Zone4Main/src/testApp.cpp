@@ -86,23 +86,7 @@ void testApp::messageUpdated(ofMessage &msg)
 		ofLogVerbose()<<sub;
 		int page_ = atoi(sub.c_str());
 		ofLogVerbose("messageUpdated") << "should go to page "<< page_;
-		while(currentPage!=page_)
-		{
-			if(currentPage>page_)
-			{
-				
-				pano.keyPressed(OF_KEY_LEFT);
-							currentPage--;
-			}
-			else{
-				pano.keyPressed(OF_KEY_RIGHT);
-							currentPage++;
-			}
-			sleep(5000);
-
-		}
-		
-		
+		pano.gotoPage( page_);
 	}
 }
 //--------------------------------------------------------------

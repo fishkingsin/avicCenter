@@ -112,7 +112,7 @@ public:
 	{
 		if(bSetup)
 		{
-
+			
 			vector<MyImagesWithAnimation>::iterator it1;
 			vector<ofImage>::iterator it2;
 			
@@ -137,7 +137,7 @@ public:
 		}
 		else{
 			ofEnableAlphaBlending();
-
+			
 			ofDrawBitmapString("Loading...", ofGetWidth()*0.5,ofGetHeight()*0.5);
 		}
 	}
@@ -158,7 +158,7 @@ public:
 							{
 								prevPage = currentPage;
 								currentPage++;
-
+								
 								coolDown = ofGetElapsedTimef();
 								ofLogVerbose("PanoApp") << "currentPage " << currentPage;
 								vector<MyImagesWithAnimation>::iterator it1;
@@ -196,7 +196,7 @@ public:
 					}
 				}
 			}
-
+			
 			
 			
 		}
@@ -209,11 +209,41 @@ public:
 	{
 		return abs(coolDown -ofGetElapsedTimef())>DURATION;
 	}
-
+	void gotoPage(int page_)
+	{
+		
+		int index = 0;
+		
+		for(int j =0 ; j < myimage1.size(); j++)
+		{
+			for(int  i = 0 ; i < myimage1[j].images.size() ;i ++)
+			{
+				
+				if(index==page_)
+				{
+					
+					prevPage = currentPage;
+					currentPage = index;
+					coolDown = ofGetElapsedTimef();
+					ofLogVerbose("PanoApp") << "currentPage " << currentPage;
+					vector<MyImagesWithAnimation>::iterator it1;
+					
+					for (it1=myimage1.begin(); it1!=myimage1.end(); it1++) {
+						MyImagesWithAnimation *a = &(*it1);
+						a->animation.animateTo( -currentPage*a->step);
+						
+					}
+					currentPageX.animateTo(-currentPage*WIDTH);
+				}
+				index++;
+			}
+		}
+		
+	}
 	vector<MyImagesWithAnimation> myimage1;
 	
 	int currentPage;
-//	int category;
+	//	int category;
 	int prevCategory;
 	int prevPage;
 	ofxAnimatableFloat currentPageX;
