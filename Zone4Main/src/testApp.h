@@ -67,6 +67,7 @@ public:
 	bool bShowGrid;
 	bool bShowCursor;
 	float r,g,b;
-	float gridX	, gridY;
+	float  gridX	, gridY;
 	bool bShowContentGrid;
+	bool bShowContent;
 };

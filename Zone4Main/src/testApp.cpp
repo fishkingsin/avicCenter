@@ -199,7 +199,9 @@ void testApp::update(){
 //--------------------------------------------------------------
 void testApp::draw(){
 	ofBackground(r, g, b);
-	if(bShowGrid)drawGrid(10,10);
+	ofPushStyle();
+	if(bShowGrid)drawGrid(gridX,gridY);
+	ofPopStyle();
 #ifdef USE_RENDERMANAGER
 	rm.startOffscreenDraw();
 	
@@ -215,7 +217,8 @@ void testApp::draw(){
 	pano.draw();
 	ofPopStyle();
 	ofPushStyle();
-	if(bShowGrid)drawGrid(gridX	, gridY);
+	ofSetColor(255,0,0);
+	if(bShowContentGrid)drawGrid(gridX	, gridY);
 	ofPopStyle();
 #endif
 #ifdef USE_RENDERMANAGER
@@ -276,6 +279,11 @@ void testApp::keyPressed(int key){
 			else
 			{
 				hr = " PM";
+			}
+			ofDirectory dir;
+			if(dir.listDir("snapshots")<0)
+			{
+				dir.createDirectory("snapshots");
 			}
 			img.saveImage("snapshots/OFXUI "+ofToString(ofGetYear())+"-"+ofToString(ofGetMonth())+"-"+ofToString(ofGetDay())+" at "+ofToString(ofGetHours(),2)+"."+ofToString(ofGetMinutes(),2)+"."+ofToString(ofGetSeconds(),2) +hr +".png");
 		}
@@ -403,8 +411,8 @@ void testApp::dragEvent(ofDragInfo dragInfo){
 //--------------------------------------------------------------
 void testApp::drawGrid(float x, float y)
 {
-    float w = ofGetWidth();
-    float h = ofGetHeight();
+    float w = MWIDTH;
+    float h = MHEIGHT;
     
     for(int i = 0; i < h; i+=y)
     {
@@ -450,7 +458,7 @@ void testApp::setGUI1()
 	gui1->addToggle("SHOW_RULER", &bShowRuler);
 	gui1->addToggle("SHOW_GRID",&bShowGrid);
 	gui1->addToggle("SHOW_CONTENT_GRID",&bShowContentGrid);
-	
+	gui1->addToggle("SHOW_CONTENT",&bShowContent);
 	gui1->addSlider("GRID_X",0,500,	&gridX);
 	gui1->addSlider("GRID_Y",0,500,	&gridY);
 	gui1->addSlider("BG_RED", 0.0, 255.0, &r);
@@ -469,6 +477,10 @@ void testApp::setGUI2()
 	
     gui2 = new ofxUICanvas(length+xInit+2, 0, length+xInit, ofGetHeight());
 	gui2->addWidgetDown(new ofxUILabel("PANEL 2: CORNAR_PIN", OFX_UI_FONT_LARGE));
+	gui2->addSlider("GUI_IN_X",0,ofGetWidth(), &guiIn.x);
+	gui2->addSlider("GUI_IN_Y",0,ofGetWidth(), &guiIn.y);
+	gui2->addSlider("GUI_OUT_X",0,ofGetWidth(), &guiOut.x);
+	gui2->addSlider("GUI_OUT_Y",0,ofGetWidth(), &guiOut.y);
 	gui2->addToggle("SHOW_RM" , &bDrawRM);
 	gui2->addToggle("SHOW_ALIGN",&rm.myOffscreenTexture.bDebug);
 	gui2->addButton("RM_SAVE" , false);
@@ -499,8 +511,12 @@ void testApp::setGUI4()
 	float xInit = OFX_UI_GLOBAL_WIDGET_SPACING;
     float length = 255-xInit;
 	gui4 = new ofxUIScrollableCanvas(length*3+xInit*3+6, 0, length+xInit, ofGetHeight());
-    gui4->addWidgetDown(new ofxUILabel("PANEL 4: SCROLLABLE", OFX_UI_FONT_LARGE));
-    
+    gui4->addWidgetDown(new ofxUILabel("PANEL 4: CONTROL", OFX_UI_FONT_LARGE));
+
+	for(int i = 0 ; i <MN_SCREEN ;i++)
+	{
+		gui4->addToggle("CONTROL_SCREEN_"+ofToString(i), &rm.CONTROL_SCREEN[i]);
+	}
     
     
 	ofAddListener(gui4->newGUIEvent,this,&testApp::guiEvent);
