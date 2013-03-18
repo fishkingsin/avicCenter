@@ -2,8 +2,11 @@ ofxNetwork
 ofxOsc
 ofxXmlSettings
 ofxAnimatable
-ofxBezierWarp
 ofxImageSequence
-ofxOpenSteer
-ofxProjectorBlend
 ofxUI
+ofxSpyhon
+ofxDraggable
+ofxMSAInteractiveObject
+ofxRenderManager
+ofxYucolabSettings
+ofxYucolabCommander

@@ -16,6 +16,9 @@
 		1B8D8AD216ED95800087BD32 /* Syphon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1B8D8AD116ED95800087BD32 /* Syphon.framework */; };
 		1B8D8AF916EDCDFC0087BD32 /* ofxYucolabCommander.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1B8D8AF716EDCDFC0087BD32 /* ofxYucolabCommander.cpp */; };
 		1B8D8B0016EDD1D40087BD32 /* ofxYucolabSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1B8D8AFE16EDD1D40087BD32 /* ofxYucolabSettings.cpp */; };
+		1BCEDA0116F339C400649A88 /* ofxMSAInteractiveObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1BCED9F716F339C400649A88 /* ofxMSAInteractiveObject.cpp */; };
+		1BCEDA0216F339C400649A88 /* ofTextureAdv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1BCED9FD16F339C400649A88 /* ofTextureAdv.cpp */; };
+		1BCEDA0316F339C400649A88 /* ofxRenderManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1BCED9FF16F339C400649A88 /* ofxRenderManager.cpp */; };
 		28090deb5109115003e8f1c540f04092 /* UdpSocketWin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5928aa323f5c2690b06c837d8d036f55 /* UdpSocketWin.cpp */; };
 		510cafe035e576a4e1502d52c11243bb /* UdpSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = e6def695b88ba5faaceaa93785a12fd9 /* UdpSocket.cpp */; };
 		52c77060fbb9307aefdae8c6f5f33cc9 /* ofxAnimatable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = f7cfee77982205d3f1496c03cdc4339c /* ofxAnimatable.cpp */; };
@@ -115,6 +118,22 @@
 		1B8D8AF816EDCDFC0087BD32 /* ofxYucolabCommander.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxYucolabCommander.h; sourceTree = "<group>"; };
 		1B8D8AFE16EDD1D40087BD32 /* ofxYucolabSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxYucolabSettings.cpp; sourceTree = "<group>"; };
 		1B8D8AFF16EDD1D40087BD32 /* ofxYucolabSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxYucolabSettings.h; sourceTree = "<group>"; };
+		1BCED9EC16F339C400649A88 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		1BCED9ED16F339C400649A88 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		1BCED9EF16F339C400649A88 /* ofxDraggable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxDraggable.h; sourceTree = "<group>"; };
+		1BCED9F116F339C400649A88 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		1BCED9F216F339C400649A88 /* changelog.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = changelog.txt; sourceTree = "<group>"; };
+		1BCED9F316F339C400649A88 /* install.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = install.xml; sourceTree = "<group>"; };
+		1BCED9F416F339C400649A88 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		1BCED9F516F339C400649A88 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		1BCED9F716F339C400649A88 /* ofxMSAInteractiveObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxMSAInteractiveObject.cpp; sourceTree = "<group>"; };
+		1BCED9F816F339C400649A88 /* ofxMSAInteractiveObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxMSAInteractiveObject.h; sourceTree = "<group>"; };
+		1BCED9F916F339C400649A88 /* ofxMSAInteractiveObjectDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxMSAInteractiveObjectDelegate.h; sourceTree = "<group>"; };
+		1BCED9FB16F339C400649A88 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		1BCED9FD16F339C400649A88 /* ofTextureAdv.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofTextureAdv.cpp; sourceTree = "<group>"; };
+		1BCED9FE16F339C400649A88 /* ofTextureAdv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofTextureAdv.h; sourceTree = "<group>"; };
+		1BCED9FF16F339C400649A88 /* ofxRenderManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxRenderManager.cpp; sourceTree = "<group>"; };
+		1BCEDA0016F339C400649A88 /* ofxRenderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxRenderManager.h; sourceTree = "<group>"; };
 		1c085e327dab912cfa2a443d084c3628 /* ofxTCPServer.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxTCPServer.cpp; path = ../../../addons/ofxNetwork/src/ofxTCPServer.cpp; sourceTree = SOURCE_ROOT; };
 		1c9e4ac6cf4626ba74f7e9945b1b4643 /* ofxAnimatableFloat.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxAnimatableFloat.cpp; path = ../../../addons/ofxAnimatable/src/ofxAnimatableFloat.cpp; sourceTree = SOURCE_ROOT; };
 		1dfa26f2c6bbd1b8ac24c0b1a41060fb /* ofxNetworkUtils.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxNetworkUtils.h; path = ../../../addons/ofxNetwork/src/ofxNetworkUtils.h; sourceTree = SOURCE_ROOT; };
@@ -380,6 +399,70 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		1BCED9EB16F339C400649A88 /* ofxDraggable */ = {
+			isa = PBXGroup;
+			children = (
+				1BCED9EC16F339C400649A88 /* .gitignore */,
+				1BCED9ED16F339C400649A88 /* README.md */,
+				1BCED9EE16F339C400649A88 /* src */,
+			);
+			name = ofxDraggable;
+			path = ../../../addons/ofxDraggable;
+			sourceTree = "<group>";
+		};
+		1BCED9EE16F339C400649A88 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				1BCED9EF16F339C400649A88 /* ofxDraggable.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		1BCED9F016F339C400649A88 /* ofxMSAInteractiveObject */ = {
+			isa = PBXGroup;
+			children = (
+				1BCED9F116F339C400649A88 /* .gitignore */,
+				1BCED9F216F339C400649A88 /* changelog.txt */,
+				1BCED9F316F339C400649A88 /* install.xml */,
+				1BCED9F416F339C400649A88 /* LICENSE.txt */,
+				1BCED9F516F339C400649A88 /* README */,
+				1BCED9F616F339C400649A88 /* src */,
+			);
+			name = ofxMSAInteractiveObject;
+			path = ../../../addons/ofxMSAInteractiveObject;
+			sourceTree = "<group>";
+		};
+		1BCED9F616F339C400649A88 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				1BCED9F716F339C400649A88 /* ofxMSAInteractiveObject.cpp */,
+				1BCED9F816F339C400649A88 /* ofxMSAInteractiveObject.h */,
+				1BCED9F916F339C400649A88 /* ofxMSAInteractiveObjectDelegate.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		1BCED9FA16F339C400649A88 /* ofxRenderManager */ = {
+			isa = PBXGroup;
+			children = (
+				1BCED9FB16F339C400649A88 /* README.md */,
+				1BCED9FC16F339C400649A88 /* src */,
+			);
+			name = ofxRenderManager;
+			path = ../../../addons/ofxRenderManager;
+			sourceTree = "<group>";
+		};
+		1BCED9FC16F339C400649A88 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				1BCED9FD16F339C400649A88 /* ofTextureAdv.cpp */,
+				1BCED9FE16F339C400649A88 /* ofTextureAdv.h */,
+				1BCED9FF16F339C400649A88 /* ofxRenderManager.cpp */,
+				1BCEDA0016F339C400649A88 /* ofxRenderManager.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		1f4fb5c423662b96adfdcc0badec1cb0 /* ofxXmlSettings */ = {
 			isa = PBXGroup;
 			children = (
@@ -490,6 +573,9 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				1BCED9EB16F339C400649A88 /* ofxDraggable */,
+				1BCED9F016F339C400649A88 /* ofxMSAInteractiveObject */,
+				1BCED9FA16F339C400649A88 /* ofxRenderManager */,
 				1B8D8AFC16EDD1D40087BD32 /* ofxYucolabSettings */,
 				1B8D8AF416EDCDFC0087BD32 /* ofxYucolabCommander */,
 				1B8D8AA316ED95580087BD32 /* ofxSyphon */,
@@ -842,6 +928,9 @@
 				1B8D8ACD16ED95580087BD32 /* ofxSyphonServer.mm in Sources */,
 				1B8D8AF916EDCDFC0087BD32 /* ofxYucolabCommander.cpp in Sources */,
 				1B8D8B0016EDD1D40087BD32 /* ofxYucolabSettings.cpp in Sources */,
+				1BCEDA0116F339C400649A88 /* ofxMSAInteractiveObject.cpp in Sources */,
+				1BCEDA0216F339C400649A88 /* ofTextureAdv.cpp in Sources */,
+				1BCEDA0316F339C400649A88 /* ofxRenderManager.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

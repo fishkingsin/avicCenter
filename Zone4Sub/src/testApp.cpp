@@ -1,5 +1,5 @@
 #include "testApp.h"
-
+#include "ofxXmlSettings.h"
 //--------------------------------------------------------------
 void testApp::setup(){
 	ofSetLogLevel(OF_LOG_VERBOSE);
@@ -7,6 +7,24 @@ void testApp::setup(){
 	ofHideCursor();
 	
 	pano.setup();
+	ofxXmlSettings xml;
+	if(xml.loadFile("configs.xml"));
+	{
+		string str;
+		xml.copyXmlToString(str);
+		
+		if(xml.pushTag("DATA"))
+		{
+			if (xml.getValue("FULLSCREEN", 0)>0) {
+				
+				ofSetFullscreen(true);
+			}
+			ofSetLogLevel((ofLogLevel)xml.getValue("LOG_LEVEL", 0));
+			
+
+			pano.duration = xml.getValue("ANIMATION_DURATION", DEFAULT_DURATION);
+		}
+	}
 	pano.init();
 	commander.setup("127.0.0.1",2838);
 
@@ -23,7 +41,7 @@ void testApp::messageUpdated(ofMessage &msg)
 	{
 		pano.keyPressed(OF_KEY_RIGHT);
 	}
-	else if (msg.message.find("ZONE_4_MAIN_")!=string::npos)
+	else if (msg.message.find("ZONE_4_MAIN_")!=string::npos || msg.message.find("RESET_ALL")!=string::npos)
 	{
 		int start_idx = msg.message.find("ZONE_4_MAIN_");
 		string sub = msg.message.substr(string("ZONE_4_MAIN_").length(),string::npos);

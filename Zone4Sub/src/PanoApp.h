@@ -12,7 +12,7 @@
 
 #include "ofxImageSequence.h"
 #define MAX_PAGE 5
-#define DURATION 3
+#define DEFAULT_DURATION 3
 #define WIDTH 1024
 #include "ofxAnimatableFloat.h"
 class MyImages
@@ -56,14 +56,13 @@ public:
 class MyImagesWithAnimation : public MyImages
 {
 public:
-	MyImagesWithAnimation(string folder)
+	MyImagesWithAnimation(string folder , float _duration)
 	{
 		setup(folder);
 		animation.setRepeatType(PLAY_ONCE);
-		animation.setCurve(EASE_OUT);
-		animation.setDuration(DURATION);
+		animation.setCurve(QUADRATIC_EASE_OUT);
+		animation.setDuration(_duration);
 	}
-	
 	
 	ofxAnimatableFloat animation;
 	
@@ -74,7 +73,7 @@ public:
 	PanoApp()
 	{
 		bSetup = false;
-		
+		duration = DEFAULT_DURATION;
 	}
 	void setup()
 	{
@@ -87,11 +86,11 @@ public:
 			myimage1.pop_back();
 		}
 		currentPage = 0;
-		myimage1.push_back(MyImagesWithAnimation("images/layer"));
+		myimage1.push_back(MyImagesWithAnimation("images/layer", duration));
 		
 		currentPageX.setRepeatType(PLAY_ONCE);
-		currentPageX.setCurve(EASE_OUT);
-		currentPageX.setDuration(DURATION);
+		currentPageX.setCurve(QUADRATIC_EASE_OUT);
+		currentPageX.setDuration(duration);
 		glDisable(GL_DEPTH_TEST);
 		bSetup = true;
 		
@@ -207,7 +206,7 @@ public:
 	}
 	bool isCoolDown()
 	{
-		return abs(coolDown -ofGetElapsedTimef())>DURATION;
+		return abs(coolDown -ofGetElapsedTimef())>DEFAULT_DURATION;
 	}
 	void gotoPage(int page_)
 	{
@@ -251,5 +250,5 @@ public:
 	float coolDown;
 	bool bSetup;
 	int nSequence;
-	
+	int duration;
 };

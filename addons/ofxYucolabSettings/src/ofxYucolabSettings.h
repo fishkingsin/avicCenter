@@ -5,7 +5,7 @@
 //  Created by james KONG on 11/3/13.
 //	warp all common app settings and easy acces from this addons
 //
-
+//under Developement
 #pragma once
 
 #include "ofMain.h"

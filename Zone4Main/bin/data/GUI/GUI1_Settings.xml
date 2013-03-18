@@ -1,5 +1,10 @@
 <Widget>
     <Kind>2</Kind>
+    <Name>SHOW_MOUSE</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
     <Name>AUTO_SAVE</Name>
     <Value>1</Value>
 </Widget>
@@ -32,4 +37,44 @@
     <Kind>17</Kind>
     <Name>SILENT</Name>
     <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>SHOW_RULER</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>SHOW_GRID</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>SHOW_CONTENT_GRID</Name>
+    <Value>1</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>GRID_X</Name>
+    <Value>22.267206192</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>GRID_Y</Name>
+    <Value>22.267206192</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>BG_RED</Name>
+    <Value>242.611343384</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>BG_GREEN</Name>
+    <Value>255.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>BG_BLUE</Name>
+    <Value>248.805664062</Value>
 </Widget>

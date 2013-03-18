@@ -11,7 +11,7 @@
 
 #include "ofxImageSequence.h"
 #define MAX_PAGE 5
-#define DURATION 3
+#define DEFAULT_DURATION 3
 #define WIDTH 5120
 #include "ParticleSystem.h"
 #define FPS 1/60.0f
@@ -57,12 +57,12 @@ public:
 class MyImagesWithAnimation : public MyImages
 {
 public:
-	MyImagesWithAnimation(string folder)
+	MyImagesWithAnimation(string folder , float _duration)
 	{
 		setup(folder);
 		animation.setRepeatType(PLAY_ONCE);
-		animation.setCurve(EASE_OUT);
-		animation.setDuration(DURATION);
+		animation.setCurve(QUADRATIC_EASE_OUT);
+		animation.setDuration(_duration);
 	}
 		
 
@@ -75,7 +75,7 @@ public:
 	PanoApp()
 	{
 		bSetup = false;
-		
+		duration = DEFAULT_DURATION;
 	}
 	void setup()
 	{
@@ -83,6 +83,7 @@ public:
 	}
 	void init()
 	{
+		
 		while(!myimage1.empty())
 		{
 			myimage1.pop_back();
@@ -92,11 +93,11 @@ public:
 			myimage2.pop_back();
 		}
 		currentPage = 0;
-		myimage1.push_back(MyImagesWithAnimation("images/layer1"));
-		myimage1.push_back(MyImagesWithAnimation("images/layer2"));
+		myimage1.push_back(MyImagesWithAnimation("images/layer1" , duration));
+		myimage1.push_back(MyImagesWithAnimation("images/layer2" , duration));
 		currentPageX.setRepeatType(PLAY_ONCE);
-		currentPageX.setCurve(EASE_OUT);
-		currentPageX.setDuration(DURATION);
+		currentPageX.setCurve(QUADRATIC_EASE_OUT);
+		currentPageX.setDuration(duration);
 		glDisable(GL_DEPTH_TEST);
 		
 		myimage2.push_back(MyImages("images/category/cat01"));
@@ -269,7 +270,7 @@ public:
 	}
 	bool isCoolDown()
 	{
-		return  abs(coolDown -ofGetElapsedTimef())>DURATION;
+		return  abs(coolDown -ofGetElapsedTimef())>duration;
 	}
 	void gotoPage(int page_)
 	{
@@ -282,6 +283,8 @@ public:
 				
 				if(index==page_)
 				{
+					if(currentPage<j) particleSystem.keyPressed(OF_KEY_RIGHT);
+					else if(currentPage>j)particleSystem.keyPressed(OF_KEY_LEFT);
 					prevPage = currentPage;
 					prevCategory = category;
 
@@ -320,5 +323,6 @@ public:
 	
 	ofxImageSequence* sequences;
 	int nSequence;
+	float duration;
 	
 };

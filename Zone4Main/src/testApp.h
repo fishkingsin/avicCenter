@@ -4,10 +4,15 @@
 #include "PanoApp.h"
 
 #include "ofxUI.h"
+//#define USE_SYPHON
 #ifdef USE_SYPHON
 #include "ofxSyphon.h"
 #endif
 #include "ofxYucolabCommander.h"
+#define USE_RENDERMANAGER
+#ifdef USE_RENDERMANAGER
+#include "ofxRenderManager.h"
+#endif
 class testApp : public ofBaseApp {
 public:
 	void setup();
@@ -44,11 +49,24 @@ public:
 	bool bdrawPadding;
 	
 	void guiEvent(ofxUIEventArgs &e);
-	#ifdef USE_SYPHON
+#ifdef USE_SYPHON
 	ofxSyphonServer syphonServer;
 	ofFbo fbo;
 #endif
 	ofxYucolabCommander commander;
 	void messageUpdated(ofMessage &msg);
 	int currentPage;
+#ifdef USE_RENDERMANAGER
+	ofxRenderManager rm;
+	bool bDrawRM;
+	int MWIDTH,MHEIGHT,MN_SCREEN;
+	
+	ofRectangle guiIn,guiOut;
+#endif
+	bool bShowRuler;
+	bool bShowGrid;
+	bool bShowCursor;
+	float r,g,b;
+	float gridX	, gridY;
+	bool bShowContentGrid;
 };
