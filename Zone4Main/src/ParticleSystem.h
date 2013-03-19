@@ -18,6 +18,7 @@ class ParticleSystem
 public:
 	void setup()
 	{
+		decay = 0.95;
 		billboards.getVertices().resize(NUM_BILLBOARDS);
 		billboards.getColors().resize(NUM_BILLBOARDS);
 		billboards.getNormals().resize(NUM_BILLBOARDS,ofVec2f(0));
@@ -49,7 +50,7 @@ public:
 		// this is used to change the
 		// size of the particle
 		ofLogVerbose() << "Create Billboard shader";
-		billboardShader.load("Billboard");
+		billboardShader.load("shaders/Billboard");
 		
 		// we need to disable ARB textures in order to use normalized texcoords
 		ofDisableArbTex();
@@ -74,12 +75,12 @@ public:
 			vec *=  ofGetLastFrameTime();
 			billboardVels[i] += vec;
 			billboards.getVertices()[i] += billboardVels[i];
-			billboardVels[i] *= 0.94f;
+			billboardVels[i] *= decay;
 			
 			if(billboards.getVertices()[i].x<-5)
 			{
-				t = ofGetElapsedTimef()*0.9f;
-				billboards.getVertices()[i].x = PARTICLE_SYSTEM_WIDTH-ofRandom(50);
+				t = ofGetElapsedTimef()*0.99f;
+				billboards.getVertices()[i].x = PARTICLE_SYSTEM_WIDTH+ofRandom(2.5);
 //				billboards.getVertices()[i].y = (PARTICLE_SYSTEM_HEIGHT*0.5)+ofNoise((billboards.getVertex(i).x+distance)/div,t )*PARTICLE_SYSTEM_HEIGHT*0.5;
 				billboards.getVertices()[i].y = (PARTICLE_SYSTEM_HEIGHT*0.5) + ofSignedNoise((billboards.getVertex(i).x)/div, i*1.0f/NUM_BILLBOARDS, billboards.getVertex(i).z/div)*PARTICLE_SYSTEM_HEIGHT*0.5;
 
@@ -87,8 +88,8 @@ public:
 			}
 			else if(billboards.getVertices()[i].x>PARTICLE_SYSTEM_WIDTH+5)
 			{
-				t = ofGetElapsedTimef()*0.9f;
-				billboards.getVertices()[i].x = ofRandom(50);
+				t = ofGetElapsedTimef()*0.99f;
+				billboards.getVertices()[i].x = -ofRandom(2.5);
 				
 				
 //				billboards.getVertices()[i].y = (PARTICLE_SYSTEM_HEIGHT*0.5)+ofNoise((billboards.getVertex(i).x+distance)/div,t)*PARTICLE_SYSTEM_HEIGHT*0.5;
@@ -194,4 +195,5 @@ public:
 	
 	ofVboMesh billboards;
 	ofVec2f billboardVels[NUM_BILLBOARDS];
+	float decay;
 };

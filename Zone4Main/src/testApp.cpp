@@ -16,10 +16,10 @@ void drawRuler()
 	for(int x= 0; x < ofGetWidth() ; x+=5)
 	{
 		ofSetColor(0);
-			ofLine(x, 0, x, (x%10==0)?length:5);
-
+		ofLine(x, 0, x, (x%10==0)?length:5);
+		
 	}
-		ofPopStyle();
+	ofPopStyle();
 }
 //--------------------------------------------------------------
 void testApp::setup(){
@@ -66,7 +66,7 @@ void testApp::setup(){
 			xml.popTag();
 			ofLogVerbose() <<guiIn.x <<" "<<  guiIn.y<<" "<<  guiIn.width<<" "<<  guiIn.height;
 			ofLogVerbose() <<guiOut.x <<" "<<  guiOut.y<<" "<<  guiOut.width<<" "<<  guiOut.height;
-						 
+			
 #endif
 		}
 	}
@@ -79,10 +79,10 @@ void testApp::setup(){
 	gui2->loadSettings("GUI/GUI2_Settings.xml");
 	gui3->loadSettings("GUI/GUI3_Settings.xml");
 	gui4->loadSettings("GUI/GUI4_Settings.xml");
-    gui1->setDrawBack(true);
-    gui2->setDrawBack(true);
-    gui3->setDrawBack(true);
-    gui4->setDrawBack(true);
+    gui1->setDrawBack(false);
+    gui2->setDrawBack(false);
+    gui3->setDrawBack(false);
+    gui4->setDrawBack(false);
 	gui1->setVisible(false);
     gui2->setVisible(false);
     gui3->setVisible(false);
@@ -157,7 +157,10 @@ void testApp::guiEvent(ofxUIEventArgs &e)
 	if(name=="AUTO_SAVE")
 	{
 		autoSave = ((ofxUIToggle*)e.widget)->getValue();
-	}else if(name=="RM_SAVE")
+
+	}
+	#ifdef USE_RENDERMANAGER
+	else if(name=="RM_SAVE")
 	{
 		rm.saveToXml();
 	}
@@ -168,6 +171,7 @@ void testApp::guiEvent(ofxUIEventArgs &e)
 	{
 		rm.resetCoordinates();
 	}
+#endif
 }
 //--------------------------------------------------------------
 void testApp::update(){
@@ -212,10 +216,13 @@ void testApp::draw(){
 	if(gui1->isVisible())
 		fbo.draw(0,0);
 #else
-	ofPushStyle();
-	ofSetColor(255);
-	pano.draw();
-	ofPopStyle();
+	if(bShowContent)
+	{
+		ofPushStyle();
+		ofSetColor(255);
+		pano.draw();
+		ofPopStyle();
+	}
 	ofPushStyle();
 	ofSetColor(255,0,0);
 	if(bShowContentGrid)drawGrid(gridX	, gridY);
@@ -227,7 +234,7 @@ void testApp::draw(){
 	
 	for(int i = 0 ; i < MN_SCREEN ; i++)
     {
-//        if(rm.ENABLE_SCREEN[i])
+		//        if(rm.ENABLE_SCREEN[i])
 		{
 			ofPushStyle();
 			ofEnableAlphaBlending();
@@ -241,6 +248,8 @@ void testApp::draw(){
 	{
 		rm.drawInputDiagnostically(guiIn.x,guiIn.y,guiIn.width,guiIn.height);
 		rm.drawOutputDiagnostically(guiOut.x, guiOut.y, guiOut.width,guiOut.height);
+		
+		rm.myOffscreenTexture.draw(guiOut.x, guiOut.y, guiOut.width,guiOut.height);
 	}
 #endif
 	if(bShowRuler)
@@ -251,6 +260,7 @@ void testApp::draw(){
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
+#ifdef USE_RENDERMANAGER
 	if(!rm.keyPressedOutputPoint(key))
 	{
 		if(rm.keyPressedInputPoint(key))
@@ -261,6 +271,7 @@ void testApp::keyPressed(int key){
 	else{
 		return;
 	}
+#endif
 	if(gui2->hasKeyboardFocus())
     {
         return;
@@ -372,21 +383,25 @@ void testApp::mouseMoved(int x, int y){
 
 //--------------------------------------------------------------
 void testApp::mouseDragged(int x, int y, int button){
+#ifdef USE_RENDERMANAGER
 	
 	if(!rm.mouseDragInputPoint(guiIn, ofVec2f(x,y)))
 	{
 		rm.mouseDragOutputPoint(guiOut, ofVec2f(x,y));
 		
 	}
+#endif
 }
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
+#ifdef USE_RENDERMANAGER
 	if(!rm.mouseSelectInputPoint(guiIn, ofVec2f(x,y)))
 	{
 		rm.mouseSelectOutputPoint(guiOut, ofVec2f(x,y));
 		
 	}
+#endif
 }
 
 //--------------------------------------------------------------
@@ -411,8 +426,14 @@ void testApp::dragEvent(ofDragInfo dragInfo){
 //--------------------------------------------------------------
 void testApp::drawGrid(float x, float y)
 {
+#ifdef USE_RENDERMANAGER
+	
     float w = MWIDTH;
     float h = MHEIGHT;
+#else
+	float w = ofGetWidth();
+	float h = ofGetHeight();
+#endif
     
     for(int i = 0; i < h; i+=y)
     {
@@ -464,7 +485,7 @@ void testApp::setGUI1()
 	gui1->addSlider("BG_RED", 0.0, 255.0, &r);
 	gui1->addSlider("BG_GREEN", 0.0, 255.0, &g);
 	gui1->addSlider("BG_BLUE", 0.0, 255.0, &b);
-	
+	gui1->addSlider("PARTICLE_DECAY", 0.9, 1.0, &pano.particleSystem.decay);
 	ofAddListener(gui1->newGUIEvent,this,&testApp::guiEvent);
 }
 
@@ -477,15 +498,18 @@ void testApp::setGUI2()
 	
     gui2 = new ofxUICanvas(length+xInit+2, 0, length+xInit, ofGetHeight());
 	gui2->addWidgetDown(new ofxUILabel("PANEL 2: CORNAR_PIN", OFX_UI_FONT_LARGE));
+#ifdef USE_RENDERMANAGER
 	gui2->addSlider("GUI_IN_X",0,ofGetWidth(), &guiIn.x);
 	gui2->addSlider("GUI_IN_Y",0,ofGetWidth(), &guiIn.y);
 	gui2->addSlider("GUI_OUT_X",0,ofGetWidth(), &guiOut.x);
 	gui2->addSlider("GUI_OUT_Y",0,ofGetWidth(), &guiOut.y);
+	
 	gui2->addToggle("SHOW_RM" , &bDrawRM);
 	gui2->addToggle("SHOW_ALIGN",&rm.myOffscreenTexture.bDebug);
 	gui2->addButton("RM_SAVE" , false);
 	gui2->addButton("RM_RELOAD",false);
 	gui2->addButton("RM_RESET",false);
+#endif
 	ofAddListener(gui2->newGUIEvent,this,&testApp::guiEvent);
 }
 
@@ -496,11 +520,12 @@ void testApp::setGUI3()
     float length = 255-xInit;
 	gui3 = new ofxUICanvas(length*2+xInit*2+4, 0, length+xInit, ofGetHeight());
     gui3->addWidgetDown(new ofxUILabel("PANEL 3: SCREEN", OFX_UI_FONT_LARGE));
+	#ifdef USE_RENDERMANAGER
 	for(int i = 0 ; i <MN_SCREEN ;i++)
 	{
 		gui3->addToggle("ENABLE_SCREEN_"+ofToString(i), &rm.ENABLE_SCREEN[i]);
 	}
-	
+#endif
 	
 	ofAddListener(gui3->newGUIEvent,this,&testApp::guiEvent);
 }
@@ -512,12 +537,12 @@ void testApp::setGUI4()
     float length = 255-xInit;
 	gui4 = new ofxUIScrollableCanvas(length*3+xInit*3+6, 0, length+xInit, ofGetHeight());
     gui4->addWidgetDown(new ofxUILabel("PANEL 4: CONTROL", OFX_UI_FONT_LARGE));
-
+	#ifdef USE_RENDERMANAGER
 	for(int i = 0 ; i <MN_SCREEN ;i++)
 	{
 		gui4->addToggle("CONTROL_SCREEN_"+ofToString(i), &rm.CONTROL_SCREEN[i]);
 	}
-    
+#endif
     
 	ofAddListener(gui4->newGUIEvent,this,&testApp::guiEvent);
 }

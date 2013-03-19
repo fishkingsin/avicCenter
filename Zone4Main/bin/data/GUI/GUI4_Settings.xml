@@ -1,7 +1,7 @@
 <Widget>
     <Kind>2</Kind>
     <Name>CONTROL_SCREEN_0</Name>
-    <Value>0</Value>
+    <Value>1</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
@@ -26,5 +26,35 @@
 <Widget>
     <Kind>2</Kind>
     <Name>CONTROL_SCREEN_5</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>CONTROL_SCREEN_6</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>CONTROL_SCREEN_7</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>CONTROL_SCREEN_8</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>CONTROL_SCREEN_9</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>CONTROL_SCREEN_10</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>CONTROL_SCREEN_11</Name>
     <Value>0</Value>
 </Widget>
