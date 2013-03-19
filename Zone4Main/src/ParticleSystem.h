@@ -48,6 +48,7 @@ public:
 		// load the bilboard shader
 		// this is used to change the
 		// size of the particle
+		ofLogVerbose() << "Create Billboard shader";
 		billboardShader.load("Billboard");
 		
 		// we need to disable ARB textures in order to use normalized texcoords
