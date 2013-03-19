@@ -71,12 +71,12 @@
 <Widget>
     <Kind>4</Kind>
     <Name>BG_RED</Name>
-    <Value>1.032388687</Value>
+    <Value>0.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>BG_GREEN</Name>
-    <Value>4.129554749</Value>
+    <Value>0.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -86,5 +86,5 @@
 <Widget>
     <Kind>4</Kind>
     <Name>PARTICLE_DECAY</Name>
-    <Value>0.958299577</Value>
+    <Value>0.963943303</Value>
 </Widget>

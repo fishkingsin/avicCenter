@@ -13,7 +13,7 @@
 #include "ofxImageSequence.h"
 #define MAX_PAGE 5
 #define DEFAULT_DURATION 3
-#define WIDTH 1024
+#define WIDTH 1920
 #include "ofxAnimatableFloat.h"
 class MyImages
 {

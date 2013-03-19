@@ -8,6 +8,8 @@ void testApp::setup(){
 	
 	pano.setup();
 	ofxXmlSettings xml;
+    string host = "127.0.0.1";
+    int port = 2838;
 	if(xml.loadFile("configs.xml"));
 	{
 		string str;
@@ -23,10 +25,12 @@ void testApp::setup(){
 			
 
 			pano.duration = xml.getValue("ANIMATION_DURATION", DEFAULT_DURATION);
+            host = xml.getValue("IP", "127.0.0.1");
+            port = xml.getValue("PORT", 2838);
 		}
 	}
 	pano.init();
-	commander.setup("127.0.0.1",2838);
+	commander.setup(host,port);
 
 	ofAddListener(commander.events.messageUpdated , this, &testApp::messageUpdated);
 }

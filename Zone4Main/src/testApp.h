@@ -2,7 +2,8 @@
 
 #include "ofMain.h"
 #include "PanoApp.h"
-
+#define OF_VERSION 7
+#define OF_VERSION_MINOR 4
 #include "ofxUI.h"
 //#define USE_SYPHON
 #ifdef USE_SYPHON

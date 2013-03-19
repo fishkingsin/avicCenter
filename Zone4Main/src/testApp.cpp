@@ -30,6 +30,8 @@ void testApp::setup(){
 	glEnable(GL_DEPTH_TEST);
 	
 	ofxXmlSettings xml;
+    string host = "127.0.0.1";
+    int port = 2838;
 	if(xml.loadFile("configs.xml"));
 	{
 		string str;
@@ -66,7 +68,8 @@ void testApp::setup(){
 			xml.popTag();
 			ofLogVerbose() <<guiIn.x <<" "<<  guiIn.y<<" "<<  guiIn.width<<" "<<  guiIn.height;
 			ofLogVerbose() <<guiOut.x <<" "<<  guiOut.y<<" "<<  guiOut.width<<" "<<  guiOut.height;
-			
+			host = xml.getValue("IP", "127.0.0.1");
+            port = xml.getValue("PORT", 2838);
 #endif
 		}
 	}
@@ -98,7 +101,7 @@ void testApp::setup(){
 	
 	fbo.allocate(settings);
 #endif
-	commander.setup("127.0.0.1",2838);
+	commander.setup(host,port);
 	
 	ofAddListener(commander.events.messageUpdated , this, &testApp::messageUpdated);
 	ofHideCursor();
@@ -157,9 +160,9 @@ void testApp::guiEvent(ofxUIEventArgs &e)
 	if(name=="AUTO_SAVE")
 	{
 		autoSave = ((ofxUIToggle*)e.widget)->getValue();
-
+        
 	}
-	#ifdef USE_RENDERMANAGER
+#ifdef USE_RENDERMANAGER
 	else if(name=="RM_SAVE")
 	{
 		rm.saveToXml();
@@ -208,7 +211,7 @@ void testApp::draw(){
 	ofPopStyle();
 #ifdef USE_RENDERMANAGER
 	rm.startOffscreenDraw();
-	
+	ofClear(0);
 #endif
 	ofEnableAlphaBlending();
 	ofBackground(0);
@@ -231,25 +234,27 @@ void testApp::draw(){
 #ifdef USE_RENDERMANAGER
 	rm.endOffscreenDraw();
 	
+    ofPushStyle();
+    ofEnableAlphaBlending();
+    ofSetColor(255);
+    rm.drawScreens();
+    ofPopStyle();
 	
-	for(int i = 0 ; i < MN_SCREEN ; i++)
-    {
-		//        if(rm.ENABLE_SCREEN[i])
-		{
-			ofPushStyle();
-			ofEnableAlphaBlending();
-			ofSetColor(255);
-			rm.drawScreen(i);
-			ofPopStyle();
-		}
-    }
+    //	for(int i = 0 ; i < MN_SCREEN ; i++)
+    //    {
+    //		{
+    //			ofPushStyle();
+    //			ofEnableAlphaBlending();
+    //			ofSetColor(255);
+    //			rm.drawScreen(i);
+    //			ofPopStyle();
+    //		}
+    //    }
 	
 	if(bDrawRM)
 	{
 		rm.drawInputDiagnostically(guiIn.x,guiIn.y,guiIn.width,guiIn.height);
 		rm.drawOutputDiagnostically(guiOut.x, guiOut.y, guiOut.width,guiOut.height);
-		
-		rm.myOffscreenTexture.draw(guiOut.x, guiOut.y, guiOut.width,guiOut.height);
 	}
 #endif
 	if(bShowRuler)
@@ -480,8 +485,10 @@ void testApp::setGUI1()
 	gui1->addToggle("SHOW_GRID",&bShowGrid);
 	gui1->addToggle("SHOW_CONTENT_GRID",&bShowContentGrid);
 	gui1->addToggle("SHOW_CONTENT",&bShowContent);
-	gui1->addSlider("GRID_X",0,500,	&gridX);
-	gui1->addSlider("GRID_Y",0,500,	&gridY);
+    gridX = 20;
+    gridY = 20;
+	gui1->addSlider("GRID_X",10,50,	&gridX);
+	gui1->addSlider("GRID_Y",10,50,	&gridY);
 	gui1->addSlider("BG_RED", 0.0, 255.0, &r);
 	gui1->addSlider("BG_GREEN", 0.0, 255.0, &g);
 	gui1->addSlider("BG_BLUE", 0.0, 255.0, &b);
@@ -520,7 +527,7 @@ void testApp::setGUI3()
     float length = 255-xInit;
 	gui3 = new ofxUICanvas(length*2+xInit*2+4, 0, length+xInit, ofGetHeight());
     gui3->addWidgetDown(new ofxUILabel("PANEL 3: SCREEN", OFX_UI_FONT_LARGE));
-	#ifdef USE_RENDERMANAGER
+#ifdef USE_RENDERMANAGER
 	for(int i = 0 ; i <MN_SCREEN ;i++)
 	{
 		gui3->addToggle("ENABLE_SCREEN_"+ofToString(i), &rm.ENABLE_SCREEN[i]);
@@ -537,7 +544,7 @@ void testApp::setGUI4()
     float length = 255-xInit;
 	gui4 = new ofxUIScrollableCanvas(length*3+xInit*3+6, 0, length+xInit, ofGetHeight());
     gui4->addWidgetDown(new ofxUILabel("PANEL 4: CONTROL", OFX_UI_FONT_LARGE));
-	#ifdef USE_RENDERMANAGER
+#ifdef USE_RENDERMANAGER
 	for(int i = 0 ; i <MN_SCREEN ;i++)
 	{
 		gui4->addToggle("CONTROL_SCREEN_"+ofToString(i), &rm.CONTROL_SCREEN[i]);

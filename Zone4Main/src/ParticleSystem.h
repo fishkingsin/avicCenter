@@ -141,7 +141,7 @@ public:
 							billboards.getVertices()[p] += billboardVels[p];
                         }
                         ofPushStyle();
-                        
+                        ofEnableBlendMode(OF_BLENDMODE_ADD);
 						float brightness = ((p%2==1)?0.6:0.3);
                         ofSetColor(255*brightness, ofMap(R,0,_radius,255,0)*brightness);
                         ofLine(billboards.getVertices()[i].x, billboards.getVertices()[i].y, billboards.getVertices()[i].z, billboards.getVertices()[p].x, billboards.getVertices()[p].y, billboards.getVertices()[p].z);

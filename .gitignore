@@ -7,3 +7,5 @@ Syphon.framework
 Zone4Main/ofxSyphon/
 *xcuserdata*
 *.zip
+
+.DS_Store
