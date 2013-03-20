@@ -76,7 +76,7 @@ void testApp::setup(){
             port = xml.getValue("PORT", 2838);
 #endif
 
-#ifdef USE_PROJECT_BLEND
+#ifdef USE_PROJECTOR_BLEND
             projector_width = xml.getValue("PROJECTOR_WIDTH",PROJECTOR_WIDTH);
             projector_height = xml.getValue("PROJECTOR_HEIGHT",PROJECTOR_HEIGHT);
             projector_count = xml.getValue("PROJECTOR_COUNT",PROJECTOR_COUNT);
@@ -90,15 +90,17 @@ void testApp::setup(){
         ofLogError("config.xml")<< "error load config";
     }
 #ifdef USE_PROJECTOR_BLEND
-    
+    ofEnableArbTex();
     blender.setup(projector_width,
                   projector_height,
                   projector_count,
                   projector_overlap);
 //    blender.setShaderLocation("shaders/SmoothEdgeBlend");
-	blender.gamma = .5;
-	blender.blendPower = 1;
-	blender.luminance = 0;
+    blender.gamma[0] = .5;
+	blender.blendPower[0] = 1;
+	blender.luminance[0] = 0;
+    ofLogVerbose() << "canvas size: " << blender.getCanvasWidth() << " x " << blender.getCanvasHeight() << endl;
+    ofLogVerbose() << "display size: " << blender.getDisplayWidth() << " x " << blender.getDisplayHeight() << endl;
 #endif
 	
 	setGUI1();
@@ -232,10 +234,7 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
-	ofBackground(r, g, b);
-	ofPushStyle();
-	if(bShowGrid)drawGrid(gridX,gridY);
-	ofPopStyle();
+	
 #ifdef USE_RENDERMANAGER
 	rm.startOffscreenDraw();
 	ofClear(0);
@@ -264,47 +263,48 @@ void testApp::draw(){
    
 #endif
 
+
+#ifdef USE_PROJECTOR_BLEND
+    glPushMatrix();
+
+
+    blender.begin();
+    ofBackground(r, g, b);
+    //light gray backaground
+//	ofSetColor(100, 100, 100);
+//	ofRect(0, 0, blender.getCanvasWidth(), blender.getCanvasHeight());
+	
+	//thick grid lines for blending
+	ofPushStyle();
+	if(bShowGrid)drawGrid(gridX,gridY);
+	ofPopStyle();
+    ofSetColor(255);
+    rm.drawScreens();
+    //call when you are finished drawing
+	blender.end();
+    
+    ofPushStyle();
+	ofSetColor(255);
+    glPushMatrix();
+    
+//    glScalef(0.5, 0.5, 0.5);
+    blender.draw(0,0);
+    glPopMatrix();
+    ofPopStyle();
+    glPopMatrix();
+#else
 #ifdef USE_RENDERMANAGER
+    ofBackground(r, g, b);
+    ofPushStyle();
+	if(bShowGrid)drawGrid(gridX,gridY);
+	ofPopStyle();
+
     ofPushStyle();
     ofEnableAlphaBlending();
     ofSetColor(255);
     rm.drawScreens();
     ofPopStyle();
 #endif
-#ifdef USE_PROJECTOR_BLEND
-    glPushMatrix();
-    ofSetupScreen();
-    blender.begin();
-    
-    //light gray backaground
-	ofSetColor(100, 100, 100);
-	ofRect(0, 0, blender.getCanvasWidth(), blender.getCanvasHeight());
-	
-	//thick grid lines for blending
-	ofSetColor(255, 255, 255);
-	ofSetLineWidth(3);
-	
-	//vertical line
-	for(int i = 0; i <= blender.getCanvasWidth(); i+=40){
-		ofLine(i, 0, i, blender.getCanvasHeight());
-	}
-	
-	//horizontal lines
-	for(int j = 0; j <= blender.getCanvasHeight(); j+=40){
-		ofLine(0, j, blender.getCanvasWidth(), j);
-	}
-
-    //call when you are finished drawing
-	blender.end();
-    ofPushStyle();
-	ofSetColor(255);
-    glPushMatrix();
-    
-    glScalef(0.5, 0.5, 0.5);
-    blender.draw(0,0);
-    glPopMatrix();
-    ofPopStyle();
-    glPopMatrix();
 #endif
     
     
@@ -580,12 +580,12 @@ void testApp::setGUI2()
 #ifdef USE_PROJECTOR_BLEND
     gui2->addLabel("BLENDING");
     gui2->addToggle("Show Blend", &blender.showBlend);
-    gui2->addSlider("Blend Power", 0.0, 4.0, &blender.blendPower);
-    gui2->addSlider("Gamma", 0.1, 4.0, &blender.gamma);
-    gui2->addSlider("Luminance", 0.0, 4.0, &blender.luminance);
-    gui2->addSlider("Blend Power 2", 0.0, 4.0, &blender.blendPower2);
-    gui2->addSlider("Gamma 2", 0.1, 4.0, &blender.gamma2);
-    gui2->addSlider("Luminance 2", 0.0, 4.0, &blender.luminance2);
+    for(int i = 0 ; i < blender.gamma.size() ; i++ )
+    {
+        gui2->addSlider("Blend Power"+ofToString(i), 0.0, 4.0, &blender.blendPower[i]);
+        gui2->addSlider("Gamma"+ofToString(i), 0.1, 4.0, &blender.gamma[i]);
+        gui2->addSlider("Luminance"+ofToString(i), 0.0, 4.0, &blender.luminance[i]);
+    }
 #endif
 	ofAddListener(gui2->newGUIEvent,this,&testApp::guiEvent);
 }
