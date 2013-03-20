@@ -27,7 +27,7 @@ void testApp::setup(){
 	ofEnableSmoothing();
 	ofSetLogLevel(OF_LOG_VERBOSE);
 	pano.setup();
-	glEnable(GL_DEPTH_TEST);
+	glDisable(GL_DEPTH_TEST);
 	
 	ofxXmlSettings xml;
     string host = "127.0.0.1";
@@ -61,18 +61,15 @@ void testApp::setup(){
 			
 			rm.allocateForNScreens(MN_SCREEN,MWIDTH,MHEIGHT);
 			rm.loadFromXml(xml.getValue("FBO_SETTING_PATH","fbo_settings.xml"));
-			xml.pushTag("GUI_IN");
-			guiIn.set(xml.getValue("GUI_IN:X",200),
-					  xml.getValue("GUI_IN:Y",200),
-					  xml.getValue("GUI_IN:WIDTH",320),
-					  xml.getValue("GUI_IN:HEIGHT",240));
-			xml.popTag();
-			xml.pushTag("GUI_OUT");
-			guiOut.set(xml.getValue("GUI_OUT:X",560),
-					   xml.getValue("GUI_OUT:Y",200),
-					   xml.getValue("GUI_OUT:WIDTH",320),
-					   xml.getValue("GUI_OUT:HEIGHT",240));
-			xml.popTag();
+			guiIn.set(xml.getValue("GUI_IN_X",200),
+					  xml.getValue("GUI_IN_Y",200),
+					  xml.getValue("GUI_IN_WIDTH",320),
+					  xml.getValue("GUI_IN_HEIGHT",240));
+			guiOut.set(xml.getValue("GUI_OUT_X",560),
+					   xml.getValue("GUI_OUT_Y",200),
+					   xml.getValue("GUI_OUT_WIDTH",320),
+					   xml.getValue("GUI_OUT_HEIGHT",240));
+
 			ofLogVerbose() <<guiIn.x <<" "<<  guiIn.y<<" "<<  guiIn.width<<" "<<  guiIn.height;
 			ofLogVerbose() <<guiOut.x <<" "<<  guiOut.y<<" "<<  guiOut.width<<" "<<  guiOut.height;
 			host = xml.getValue("IP", "127.0.0.1");
@@ -80,10 +77,10 @@ void testApp::setup(){
 #endif
             xml.pushTag("PROJECT_BLEND");
 #ifdef USE_PROJECT_BLEND
-            projector_width = xml.getValue("PROJECT_BLEND:PROJECTOR_WIDTH",PROJECTOR_WIDTH);
-            projector_height = xml.getValue("PROJECT_BLEND:PROJECTOR_HEIGHT",PROJECTOR_HEIGHT);
-            projector_count = xml.getValue("PROJECT_BLEND:PROJECTOR_COUNT",PROJECTOR_COUNT);
-            projector_overlap = xml.getValue("PROJECT_BLEND:PIXEL_OVERLAP",PIXEL_OVERLAP);
+            projector_width = xml.getValue("PROJECTOR_WIDTH",PROJECTOR_WIDTH);
+            projector_height = xml.getValue("PROJECTOR_HEIGHT",PROJECTOR_HEIGHT);
+            projector_count = xml.getValue("PROJECTOR_COUNT",PROJECTOR_COUNT);
+            projector_overlap = xml.getValue("PIXEL_OVERLAP",PIXEL_OVERLAP);
 #endif
             xml.popTag();
 		}
@@ -262,10 +259,19 @@ void testApp::draw(){
 	
    
 #endif
+
+#ifdef USE_RENDERMANAGER
+    ofPushStyle();
+    ofEnableAlphaBlending();
+    ofSetColor(255);
+    rm.drawScreens();
+    ofPopStyle();
+#endif
 #ifdef USE_PROJECTOR_BLEND
-
+    glPushMatrix();
+    ofSetupScreen();
     blender.begin();
-
+    
     //light gray backaground
 	ofSetColor(100, 100, 100);
 	ofRect(0, 0, blender.getCanvasWidth(), blender.getCanvasHeight());
@@ -283,21 +289,18 @@ void testApp::draw(){
 	for(int j = 0; j <= blender.getCanvasHeight(); j+=40){
 		ofLine(0, j, blender.getCanvasWidth(), j);
 	}
-#endif
-#ifdef USE_RENDERMANAGER
-    ofPushStyle();
-    ofEnableAlphaBlending();
-    ofSetColor(255);
-    rm.drawScreens();
-    ofPopStyle();
-#endif
-#ifdef USE_PROJECTOR_BLEND
+
     //call when you are finished drawing
 	blender.end();
     ofPushStyle();
 	ofSetColor(255);
+    glPushMatrix();
+    
+    glScalef(0.5, 0.5, 0.5);
     blender.draw(0,0);
+    glPopMatrix();
     ofPopStyle();
+    glPopMatrix();
 #endif
     
     

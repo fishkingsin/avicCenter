@@ -14,7 +14,7 @@
 #ifdef USE_RENDERMANAGER
 #include "ofxRenderManager.h"
 #endif
-//#define USE_PROJECTOR_BLEND
+#define USE_PROJECTOR_BLEND
 #ifdef USE_PROJECTOR_BLEND
 #include "ofxProjectorBlend.h"
 #define PIXEL_OVERLAP 40

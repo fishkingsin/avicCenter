@@ -28,3 +28,38 @@
     <Name>SHOW_ALIGN</Name>
     <Value>0</Value>
 </Widget>
+<Widget>
+    <Kind>2</Kind>
+    <Name>Show Blend</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>Blend Power</Name>
+    <Value>0.728744924</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>Gamma</Name>
+    <Value>0.500000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>Luminance</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>Blend Power 2</Name>
+    <Value>1.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>Gamma 2</Name>
+    <Value>0.500000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>Luminance 2</Name>
+    <Value>0.000000000</Value>
+</Widget>
