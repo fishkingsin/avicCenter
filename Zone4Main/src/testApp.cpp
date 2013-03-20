@@ -23,6 +23,7 @@ void drawRuler()
 }
 //--------------------------------------------------------------
 void testApp::setup(){
+	ofSetVerticalSync(true);
 	ofSetFrameRate(60);
 	ofEnableSmoothing();
 	ofSetLogLevel(OF_LOG_VERBOSE);
