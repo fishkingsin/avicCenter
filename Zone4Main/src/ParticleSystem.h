@@ -80,7 +80,7 @@ public:
 			if(billboards.getVertices()[i].x<-5)
 			{
 				t = ofGetElapsedTimef()*0.99f;
-				billboards.getVertices()[i].x = PARTICLE_SYSTEM_WIDTH+ofRandom(2.5);
+				billboards.getVertices()[i].x = PARTICLE_SYSTEM_WIDTH+ofRandom(0,100);
 //				billboards.getVertices()[i].y = (PARTICLE_SYSTEM_HEIGHT*0.5)+ofNoise((billboards.getVertex(i).x+distance)/div,t )*PARTICLE_SYSTEM_HEIGHT*0.5;
 				billboards.getVertices()[i].y = (PARTICLE_SYSTEM_HEIGHT*0.5) + ofSignedNoise((billboards.getVertex(i).x)/div, i*1.0f/NUM_BILLBOARDS, billboards.getVertex(i).z/div)*PARTICLE_SYSTEM_HEIGHT*0.5;
 
@@ -89,7 +89,7 @@ public:
 			else if(billboards.getVertices()[i].x>PARTICLE_SYSTEM_WIDTH+5)
 			{
 				t = ofGetElapsedTimef()*0.99f;
-				billboards.getVertices()[i].x = -ofRandom(2.5);
+				billboards.getVertices()[i].x = -ofRandom(0,100);
 				
 				
 //				billboards.getVertices()[i].y = (PARTICLE_SYSTEM_HEIGHT*0.5)+ofNoise((billboards.getVertex(i).x+distance)/div,t)*PARTICLE_SYSTEM_HEIGHT*0.5;
@@ -143,7 +143,8 @@ public:
                         ofPushStyle();
                         ofEnableBlendMode(OF_BLENDMODE_ADD);
 						float brightness = ((p%2==1)?0.6:0.3);
-                        ofSetColor(255*brightness, ofMap(R,0,_radius,255,0)*brightness);
+                        ofSetColor(255, ofMap(R,0,_radius,255,0)*brightness);
+                        ofSetLineWidth(1);
                         ofLine(billboards.getVertices()[i].x, billboards.getVertices()[i].y, billboards.getVertices()[i].z, billboards.getVertices()[p].x, billboards.getVertices()[p].y, billboards.getVertices()[p].z);
                         ofPopStyle();
                     }
@@ -154,6 +155,7 @@ public:
 		billboardShader.begin();
 		
 		ofEnablePointSprites();
+        ofSetColor(255);
 		texture.getTextureReference().bind();
 		billboards.draw();
 		texture.getTextureReference().unbind();

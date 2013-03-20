@@ -14,6 +14,14 @@
 #ifdef USE_RENDERMANAGER
 #include "ofxRenderManager.h"
 #endif
+//#define USE_PROJECTOR_BLEND
+#ifdef USE_PROJECTOR_BLEND
+#include "ofxProjectorBlend.h"
+#define PIXEL_OVERLAP 40
+#define PROJECTOR_COUNT 2
+#define PROJECTOR_WIDTH 1024
+#define PROJECTOR_HEIGHT 768
+#endif
 class testApp : public ofBaseApp {
 public:
 	void setup();
@@ -71,4 +79,7 @@ public:
 	float  gridX	, gridY;
 	bool bShowContentGrid;
 	bool bShowContent;
+#ifdef USE_PROJECTOR_BLEND
+    ofxProjectorBlend blender;
+#endif
 };

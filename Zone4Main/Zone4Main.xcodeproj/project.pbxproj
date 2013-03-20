@@ -35,6 +35,9 @@
 		960d20b191346612d5c05a6af838c285 /* ofxTCPClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = bf88f02779dd820913acea06f63c5b7e /* ofxTCPClient.cpp */; };
 		9d44dc88ef9e7991b4a09951e2e4769f /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 832bdc407620cdba568b713d2252c43c /* tinyxmlerror.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
+		E36894BB16F9797300306A51 /* SmoothEdgeBlend.frag in Sources */ = {isa = PBXBuildFile; fileRef = E36894A516F9797300306A51 /* SmoothEdgeBlend.frag */; };
+		E36894BC16F9797300306A51 /* SmoothEdgeBlend.vert in Sources */ = {isa = PBXBuildFile; fileRef = E36894A616F9797300306A51 /* SmoothEdgeBlend.vert */; };
+		E36894BF16F9797300306A51 /* ofxProjectorBlend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E36894B416F9797300306A51 /* ofxProjectorBlend.cpp */; };
 		E3EB866B16F8462B00CEA495 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3EB864B16F8462B00CEA495 /* Syphon.framework */; };
 		E3EB866C16F8462B00CEA495 /* SyphonDirectoryObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = E3EB864E16F8462B00CEA495 /* SyphonDirectoryObserver.m */; };
 		E3EB866D16F8462B00CEA495 /* SyphonNameboundClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E3EB865016F8462B00CEA495 /* SyphonNameboundClient.m */; };
@@ -185,6 +188,11 @@
 		9bf3aa0d4faa89d0f8a0e545403162be /* OscReceivedElements.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = OscReceivedElements.cpp; path = ../../../addons/ofxOsc/libs/oscpack/src/osc/OscReceivedElements.cpp; sourceTree = SOURCE_ROOT; };
 		9f7986dc4eb05e75fce2c777500fdc01 /* ofxOscSender.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOscSender.h; path = ../../../addons/ofxOsc/src/ofxOscSender.h; sourceTree = SOURCE_ROOT; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
+		E36894A316F9797300306A51 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		E36894A516F9797300306A51 /* SmoothEdgeBlend.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = SmoothEdgeBlend.frag; sourceTree = "<group>"; };
+		E36894A616F9797300306A51 /* SmoothEdgeBlend.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = SmoothEdgeBlend.vert; sourceTree = "<group>"; };
+		E36894B416F9797300306A51 /* ofxProjectorBlend.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxProjectorBlend.cpp; sourceTree = "<group>"; };
+		E36894B516F9797300306A51 /* ofxProjectorBlend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxProjectorBlend.h; sourceTree = "<group>"; };
 		E3EB864B16F8462B00CEA495 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Syphon.framework; sourceTree = "<group>"; };
 		E3EB864D16F8462B00CEA495 /* SyphonDirectoryObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyphonDirectoryObserver.h; sourceTree = "<group>"; };
 		E3EB864E16F8462B00CEA495 /* SyphonDirectoryObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyphonDirectoryObserver.m; sourceTree = "<group>"; };
@@ -516,6 +524,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				E36894A216F9797300306A51 /* ofxProjectorBlend */,
 				E3EB862A16F8462B00CEA495 /* ofxSyphon */,
 				1BCED9EB16F339C400649A88 /* ofxDraggable */,
 				1BCED9F016F339C400649A88 /* ofxMSAInteractiveObject */,
@@ -560,6 +569,35 @@
 				BBAB23BE13894E4700AA2426 /* GLUT.framework */,
 			);
 			name = "3rd party frameworks";
+			sourceTree = "<group>";
+		};
+		E36894A216F9797300306A51 /* ofxProjectorBlend */ = {
+			isa = PBXGroup;
+			children = (
+				E36894A316F9797300306A51 /* .gitignore */,
+				E36894A416F9797300306A51 /* assets */,
+				E36894B316F9797300306A51 /* src */,
+			);
+			name = ofxProjectorBlend;
+			path = ../../../addons/ofxProjectorBlend;
+			sourceTree = "<group>";
+		};
+		E36894A416F9797300306A51 /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				E36894A516F9797300306A51 /* SmoothEdgeBlend.frag */,
+				E36894A616F9797300306A51 /* SmoothEdgeBlend.vert */,
+			);
+			path = assets;
+			sourceTree = "<group>";
+		};
+		E36894B316F9797300306A51 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				E36894B416F9797300306A51 /* ofxProjectorBlend.cpp */,
+				E36894B516F9797300306A51 /* ofxProjectorBlend.h */,
+			);
+			path = src;
 			sourceTree = "<group>";
 		};
 		E3EB862A16F8462B00CEA495 /* ofxSyphon */ = {
@@ -944,6 +982,9 @@
 				E3EB866E16F8462B00CEA495 /* ofxSyphonClient.mm in Sources */,
 				E3EB866F16F8462B00CEA495 /* ofxSyphonServer.mm in Sources */,
 				E3EB867016F8462B00CEA495 /* ofxSyphonServerDirectory.mm in Sources */,
+				E36894BB16F9797300306A51 /* SmoothEdgeBlend.frag in Sources */,
+				E36894BC16F9797300306A51 /* SmoothEdgeBlend.vert in Sources */,
+				E36894BF16F9797300306A51 /* ofxProjectorBlend.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -32,6 +32,13 @@ void testApp::setup(){
 	ofxXmlSettings xml;
     string host = "127.0.0.1";
     int port = 2838;
+    
+#ifdef USE_PROJECTOR_BLEND
+    int projector_width = PROJECTOR_WIDTH;
+    int projector_height = PROJECTOR_HEIGHT;
+    int projector_count = PROJECTOR_COUNT;
+    int projector_overlap = PIXEL_OVERLAP;
+#endif
 	if(xml.loadFile("configs.xml"));
 	{
 		string str;
@@ -71,8 +78,27 @@ void testApp::setup(){
 			host = xml.getValue("IP", "127.0.0.1");
             port = xml.getValue("PORT", 2838);
 #endif
+            xml.pushTag("PROJECT_BLEND");
+#ifdef USE_PROJECT_BLEND
+            projector_width = xml.getValue("PROJECT_BLEND:PROJECTOR_WIDTH",PROJECTOR_WIDTH);
+            projector_height = xml.getValue("PROJECT_BLEND:PROJECTOR_HEIGHT",PROJECTOR_HEIGHT);
+            projector_count = xml.getValue("PROJECT_BLEND:PROJECTOR_COUNT",PROJECTOR_COUNT);
+            projector_overlap = xml.getValue("PROJECT_BLEND:PIXEL_OVERLAP",PIXEL_OVERLAP);
+#endif
+            xml.popTag();
 		}
 	}
+#ifdef USE_PROJECTOR_BLEND
+    
+    blender.setup(projector_width,
+                  projector_height,
+                  projector_count,
+                  projector_overlap);
+//    blender.setShaderLocation("shaders/SmoothEdgeBlend");
+	blender.gamma = .5;
+	blender.blendPower = 1;
+	blender.luminance = 0;
+#endif
 	
 	setGUI1();
 	setGUI2();
@@ -213,8 +239,8 @@ void testApp::draw(){
 	rm.startOffscreenDraw();
 	ofClear(0);
 #endif
-	ofEnableAlphaBlending();
-	ofBackground(0);
+
+
 #ifdef USE_SYPHON
 	if(gui1->isVisible())
 		fbo.draw(0,0);
@@ -234,23 +260,48 @@ void testApp::draw(){
 #ifdef USE_RENDERMANAGER
 	rm.endOffscreenDraw();
 	
+   
+#endif
+#ifdef USE_PROJECTOR_BLEND
+
+    blender.begin();
+
+    //light gray backaground
+	ofSetColor(100, 100, 100);
+	ofRect(0, 0, blender.getCanvasWidth(), blender.getCanvasHeight());
+	
+	//thick grid lines for blending
+	ofSetColor(255, 255, 255);
+	ofSetLineWidth(3);
+	
+	//vertical line
+	for(int i = 0; i <= blender.getCanvasWidth(); i+=40){
+		ofLine(i, 0, i, blender.getCanvasHeight());
+	}
+	
+	//horizontal lines
+	for(int j = 0; j <= blender.getCanvasHeight(); j+=40){
+		ofLine(0, j, blender.getCanvasWidth(), j);
+	}
+#endif
+#ifdef USE_RENDERMANAGER
     ofPushStyle();
     ofEnableAlphaBlending();
     ofSetColor(255);
     rm.drawScreens();
     ofPopStyle();
-	
-    //	for(int i = 0 ; i < MN_SCREEN ; i++)
-    //    {
-    //		{
-    //			ofPushStyle();
-    //			ofEnableAlphaBlending();
-    //			ofSetColor(255);
-    //			rm.drawScreen(i);
-    //			ofPopStyle();
-    //		}
-    //    }
-	
+#endif
+#ifdef USE_PROJECTOR_BLEND
+    //call when you are finished drawing
+	blender.end();
+    ofPushStyle();
+	ofSetColor(255);
+    blender.draw(0,0);
+    ofPopStyle();
+#endif
+    
+    
+#ifdef USE_RENDERMANAGER
 	if(bDrawRM)
 	{
 		rm.drawInputDiagnostically(guiIn.x,guiIn.y,guiIn.width,guiIn.height);
@@ -493,6 +544,8 @@ void testApp::setGUI1()
 	gui1->addSlider("BG_GREEN", 0.0, 255.0, &g);
 	gui1->addSlider("BG_BLUE", 0.0, 255.0, &b);
 	gui1->addSlider("PARTICLE_DECAY", 0.9, 1.0, &pano.particleSystem.decay);
+    
+    
 	ofAddListener(gui1->newGUIEvent,this,&testApp::guiEvent);
 }
 
@@ -504,7 +557,7 @@ void testApp::setGUI2()
     
 	
     gui2 = new ofxUICanvas(length+xInit+2, 0, length+xInit, ofGetHeight());
-	gui2->addWidgetDown(new ofxUILabel("PANEL 2: CORNAR_PIN", OFX_UI_FONT_LARGE));
+	gui2->addWidgetDown(new ofxUILabel("PANEL 2: MAPPING", OFX_UI_FONT_LARGE));
 #ifdef USE_RENDERMANAGER
 	gui2->addSlider("GUI_IN_X",0,ofGetWidth(), &guiIn.x);
 	gui2->addSlider("GUI_IN_Y",0,ofGetWidth(), &guiIn.y);
@@ -516,6 +569,16 @@ void testApp::setGUI2()
 	gui2->addButton("RM_SAVE" , false);
 	gui2->addButton("RM_RELOAD",false);
 	gui2->addButton("RM_RESET",false);
+#endif
+#ifdef USE_PROJECTOR_BLEND
+    gui2->addLabel("BLENDING");
+    gui2->addToggle("Show Blend", &blender.showBlend);
+    gui2->addSlider("Blend Power", 0.0, 4.0, &blender.blendPower);
+    gui2->addSlider("Gamma", 0.1, 4.0, &blender.gamma);
+    gui2->addSlider("Luminance", 0.0, 4.0, &blender.luminance);
+    gui2->addSlider("Blend Power 2", 0.0, 4.0, &blender.blendPower2);
+    gui2->addSlider("Gamma 2", 0.1, 4.0, &blender.gamma2);
+    gui2->addSlider("Luminance 2", 0.0, 4.0, &blender.luminance2);
 #endif
 	ofAddListener(gui2->newGUIEvent,this,&testApp::guiEvent);
 }
