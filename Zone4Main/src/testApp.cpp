@@ -39,7 +39,7 @@ void testApp::setup(){
     int projector_count = PROJECTOR_COUNT;
     int projector_overlap = PIXEL_OVERLAP;
 #endif
-	if(xml.loadFile("configs.xml"));
+	if(xml.loadFile("configs.xml"))
 	{
 		string str;
 		xml.copyXmlToString(str);
@@ -75,16 +75,20 @@ void testApp::setup(){
 			host = xml.getValue("IP", "127.0.0.1");
             port = xml.getValue("PORT", 2838);
 #endif
-            xml.pushTag("PROJECT_BLEND");
+
 #ifdef USE_PROJECT_BLEND
             projector_width = xml.getValue("PROJECTOR_WIDTH",PROJECTOR_WIDTH);
             projector_height = xml.getValue("PROJECTOR_HEIGHT",PROJECTOR_HEIGHT);
             projector_count = xml.getValue("PROJECTOR_COUNT",PROJECTOR_COUNT);
             projector_overlap = xml.getValue("PIXEL_OVERLAP",PIXEL_OVERLAP);
 #endif
-            xml.popTag();
+
 		}
 	}
+    else
+    {
+        ofLogError("config.xml")<< "error load config";
+    }
 #ifdef USE_PROJECTOR_BLEND
     
     blender.setup(projector_width,
