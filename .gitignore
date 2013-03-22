@@ -9,3 +9,5 @@ Zone4Main/ofxSyphon/
 *.zip
 
 .DS_Store
+
+*.zip
