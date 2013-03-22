@@ -54,6 +54,11 @@ void testApp::messageUpdated(ofMessage &msg)
 		ofLogVerbose("messageUpdated") << "should go to page "<< page_;
 		pano.gotoPage( page_);
 	}
+    else if (msg.message.find("RESET_ALL")>0)
+	{
+		
+		pano.gotoPage(0);
+	}
 }
 
 //--------------------------------------------------------------
