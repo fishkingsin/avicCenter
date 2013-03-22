@@ -54,6 +54,7 @@ void testApp::setup(){
 			ofSetLogLevel((ofLogLevel)xml.getValue("LOG_LEVEL", 0));
 			
 			pano.duration = xml.getValue("ANIMATION_DURATION", DEFAULT_DURATION);
+            pano.seqPoint.set(xml.getValue("SEQUENCE_X", 668),xml.getValue("SEQUENCE_Y", 0));
 			if(xml.getValue("AUTO_START", 0)>0)pano.init();
 #ifdef USE_RENDERMANAGER
 			MN_SCREEN = xml.getValue("N_SCREEN",2);

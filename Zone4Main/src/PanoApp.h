@@ -74,6 +74,7 @@ class PanoApp
 public:
 	PanoApp()
 	{
+        seqPoint.set(0, 0);
 		bSetup = false;
 		duration = DEFAULT_DURATION;
 	}
@@ -173,7 +174,7 @@ public:
 			{
 				
 				if(category<nSequence && isCoolDown()){
-					sequences[category].getFrameForTime(ofGetElapsedTimef())->draw(668,0);
+					sequences[category].getFrameForTime(ofGetElapsedTimef())->draw(seqPoint.x,seqPoint.y);
 				}
 			}
 //			if(myimage2[prevPage].images.size()>1)myimage2[prevPage].images[0].draw(myimage2[prevPage].position.x+currentPageX, 0);
@@ -310,7 +311,7 @@ public:
 	vector<MyImagesWithAnimation> myimage1;
 
 	vector<MyImages> myimage2;
-	
+	ofPoint seqPoint;
 	int currentPage;
 	int category;
 	int prevCategory;
