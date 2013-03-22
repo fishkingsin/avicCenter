@@ -1,6 +1,10 @@
 avicCenter
 ==========
 
+Installation
+==========
+clone this proejct to of_v0.7.4_osx_release/apps
+
 Dependencies
 ==========
 ofxNetwork
@@ -13,3 +17,5 @@ ofxDraggable
 ofxMSAInteractiveObject
 ofxRenderManager
 ofxYucolabCommander
+
+search the repo on www.ofxaddons.com
