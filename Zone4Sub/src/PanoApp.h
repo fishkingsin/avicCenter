@@ -11,7 +11,7 @@
 #include "ofMain.h"
 
 #include "ofxImageSequence.h"
-#define MAX_PAGE 5
+
 #define DEFAULT_DURATION 3
 #define WIDTH 1920
 #include "ofxAnimatableFloat.h"
@@ -153,7 +153,7 @@ public:
 					{
 						{
 							
-							if(currentPage<MAX_PAGE-1)
+							if(currentPage<myimage1.back().images.size() )
 							{
 								prevPage = currentPage;
 								currentPage++;

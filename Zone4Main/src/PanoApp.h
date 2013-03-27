@@ -21,8 +21,17 @@ class MyImages
 public:
 	MyImages()
 	{
-		
+
 	}
+    ~MyImages()
+	{
+        while(!sequences.empty())
+        {
+//            sequences.back()->~ofxImageSequence();
+            sequences.pop_back();
+        }
+	}
+
 	MyImages(string folder)
 	{
 		setup(folder);
@@ -32,7 +41,10 @@ public:
 	{
 		ofDirectory dir;
 		int totalWidth = 0;
+        dir.allowExt("jpg");
+        dir.allowExt("png");
 		int nFiles = dir.listDir(folder);
+        
 		if(nFiles) {
 			
 			for(int i=0; i<dir.numFiles(); i++) {
@@ -53,7 +65,8 @@ public:
 	int width;
 	ofVec2f position;
 	vector<ofImage>images;
-	};
+    vector<ofxImageSequence*>sequences;
+};
 class MyImagesWithAnimation : public MyImages
 {
 public:
@@ -64,7 +77,7 @@ public:
 		animation.setCurve(QUADRATIC_EASE_OUT);
 		animation.setDuration(_duration);
 	}
-		
+    
 
 	ofxAnimatableFloat animation;
 
@@ -100,9 +113,19 @@ public:
 		currentPageX.setCurve(QUADRATIC_EASE_OUT);
 		currentPageX.setDuration(duration);
 		glDisable(GL_DEPTH_TEST);
-		
+		ofDirectory dir2;
 		myimage2.push_back(MyImages("images/category/cat01"));
 		myimage2.back().position.x = 0;
+        int nFiles = dir2.listDir("images/category/cat01/imagesequence");
+		
+		if(nFiles) {
+//			nSequence = nFiles;
+//			myimage2.back().sequences = new ofxImageSequence[nFiles];
+			for(int i=0; i<dir2.numFiles(); i++) {
+                myimage2.back().sequences.push_back(new ofxImageSequence());
+				myimage2.back().sequences.back()->loadSequence(dir2.getPath(i));
+			}
+		}
 		myimage2.push_back(MyImages("images/category/cat02"));
 		myimage2.back().position.x = WIDTH;
 		myimage2.push_back(MyImages("images/category/cat03"));
@@ -110,22 +133,22 @@ public:
 		
 		myimage2.push_back(MyImages("images/category/cat04"));
 		myimage2.back().position.x = WIDTH*3;
-		//		myimage3 = (MyImagesWidthAnimation*)&myimage2.back();
-		//		ofDirectory dir;
-		int totalWidth = 0;
-		ofDirectory dir2;
-		int nFiles = dir2.listDir("images/category/cat04/imagesequence");
+		nFiles = dir2.listDir("images/category/cat04/imagesequence");
 		
 		if(nFiles) {
-			nSequence = nFiles;
-			sequences = new ofxImageSequence[nFiles];
+//			nSequence = nFiles;
+//			myimage2.back().sequences = new ofxImageSequence[nFiles];
 			for(int i=0; i<dir2.numFiles(); i++) {
-				sequences[i].loadSequence(dir2.getPath(i));
+				myimage2.back().sequences.push_back(new ofxImageSequence());
+				myimage2.back().sequences.back()->loadSequence(dir2.getPath(i));
 			}
 		}
 		
+		
 		myimage2.push_back(MyImages("images/category/cat05"));
 		myimage2.back().position.x = WIDTH*4;
+		int totalWidth = 0;
+		
 		
 		category=0;
 		bSetup = true;
@@ -170,14 +193,13 @@ public:
 				if(layer==0)particleSystem.draw();
 				layer++;
 			}
-			if(currentPage==3 )
-			{
-				
-				if(category<nSequence && isCoolDown()){
-					sequences[category].getFrameForTime(ofGetElapsedTimef())->draw(seqPoint.x,seqPoint.y);
-				}
-			}
-//			if(myimage2[prevPage].images.size()>1)myimage2[prevPage].images[0].draw(myimage2[prevPage].position.x+currentPageX, 0);
+            if(category<myimage2[currentPage].sequences.size() && isCoolDown() && myimage2[currentPage].sequences.size()>0 ){
+                myimage2[currentPage].sequences[category]->getFrameForTime(ofGetElapsedTimef())->draw(seqPoint.x,seqPoint.y);
+            }
+            if(category<myimage2[prevCategory].sequences.size() && !isCoolDown() && myimage2[prevCategory].sequences.size()>0 ){
+                myimage2[prevCategory].sequences[prevCategory]->getFrameForTime(ofGetElapsedTimef())->draw(currentPageX.getCurrentValue()+ myimage2[prevCategory].position.x+ seqPoint.x,seqPoint.y);
+            }
+
 			if(category<myimage2[currentPage].images.size())myimage2[currentPage].images[category].draw(myimage2[currentPage].position.x+currentPageX.getCurrentValue(), 0);
 			
 		}
@@ -199,6 +221,7 @@ public:
 					if(key==OF_KEY_RIGHT)
 					{
 						category++;
+                        ofLogVerbose("PanoApp") << "category " << category;
 						if(category>=myimage2[currentPage].images.size())
 						{
 							
@@ -322,8 +345,8 @@ public:
 	bool bSetup;
 	ParticleSystem particleSystem;
 	
-	ofxImageSequence* sequences;
-	int nSequence;
+	
+
 	float duration;
 	
 };
