@@ -196,8 +196,8 @@ public:
             if(category<myimage2[currentPage].sequences.size() && isCoolDown() && myimage2[currentPage].sequences.size()>0 ){
                 myimage2[currentPage].sequences[category]->getFrameForTime(ofGetElapsedTimef())->draw(seqPoint.x,seqPoint.y);
             }
-            if(category<myimage2[prevCategory].sequences.size() && !isCoolDown() && myimage2[prevCategory].sequences.size()>0 ){
-                myimage2[prevCategory].sequences[prevCategory]->getFrameForTime(ofGetElapsedTimef())->draw(currentPageX.getCurrentValue()+ myimage2[prevCategory].position.x+ seqPoint.x,seqPoint.y);
+            if(category<myimage2[prevPage].sequences.size() && !isCoolDown() && myimage2[prevPage].sequences.size()>0 ){
+                myimage2[prevPage].sequences[prevCategory]->getFrameForTime(ofGetElapsedTimef())->draw(currentPageX.getCurrentValue()+ myimage2[prevPage].position.x+ seqPoint.x,seqPoint.y);
             }
 
 			if(category<myimage2[currentPage].images.size())myimage2[currentPage].images[category].draw(myimage2[currentPage].position.x+currentPageX.getCurrentValue(), 0);
