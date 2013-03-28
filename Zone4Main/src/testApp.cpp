@@ -178,7 +178,20 @@ void testApp::guiEvent(ofxUIEventArgs &e)
 	string name = e.widget->getName();
 	int kind = e.widget->getKind();
 	ofLogVerbose() << "got event from: " << name << " kind " << kind << endl;
-	if (name == "SHOW_MOUSE")
+    if (name == "LOG_LEVEL")
+    {
+        ofxUIDropDownList *ddlist = (ofxUIDropDownList *) e.widget;
+        vector<ofxUILabelToggle *> &toggles = ddlist->getToggles();
+        
+        for(int i = 0; i < toggles.size(); i++)
+        {
+            if(toggles[i]->getValue())
+            {
+                ofSetLogLevel((ofLogLevel)i);
+            }
+        }
+    }
+	else if (name == "SHOW_MOUSE")
 	{
 		if(((ofxUIToggle*)e.widget)->getValue())
 		{
@@ -429,6 +442,13 @@ void testApp::keyPressed(int key){
 			gui3->saveSettings("GUI/GUI3_Settings.xml");
 			gui4->saveSettings("GUI/GUI4_Settings.xml");
 			break;
+            case ' ':
+        {
+            int ran = (int)ofRandom(0,22);
+            ofLogVerbose()<< "go to index page "  << ran;
+            pano.gotoPage(ran);
+        }
+            break;
 		default:
 			break;
 	}
@@ -540,7 +560,7 @@ void testApp::setGUI1()
 	items.push_back("FATAL_ERROR");
 	items.push_back("SILENT");
     
-    gui1->addDropDownList("LOG_LEVEL", items, 200);
+
 	gui1->addToggle("SHOW_RULER", &bShowRuler);
 	gui1->addToggle("SHOW_GRID",&bShowGrid);
 	gui1->addToggle("SHOW_CONTENT_GRID",&bShowContentGrid);
@@ -553,7 +573,7 @@ void testApp::setGUI1()
 	gui1->addSlider("BG_GREEN", 0.0, 255.0, &g);
 	gui1->addSlider("BG_BLUE", 0.0, 255.0, &b);
 	gui1->addSlider("PARTICLE_DECAY", 0.9, 1.0, &pano.particleSystem.decay);
-    
+        gui1->addDropDownList("LOG_LEVEL", items, 200);
     
 	ofAddListener(gui1->newGUIEvent,this,&testApp::guiEvent);
 }

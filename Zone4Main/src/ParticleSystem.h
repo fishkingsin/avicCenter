@@ -64,14 +64,7 @@ public:
 		float div = 250.0;
 		
 		for (int i=0; i<NUM_BILLBOARDS; i++) {
-//			ofVec3f vec(0,0,0);
-			// noise
 			ofVec3f vec(0,sinf((billboards.getVertex(i).x/div)+(t*0.9)+TWO_PI*(i*1.0f/NUM_BILLBOARDS)));
-			
-//			ofVec3f vec(ofSignedNoise(t, billboards.getVertex(i).y/div, billboards.getVertex(i).z/div),
-//						ofSignedNoise(billboards.getVertex(i).x/div, t, billboards.getVertex(i).z/div),
-//						ofSignedNoise(billboards.getVertex(i).x/div, billboards.getVertex(i).y/div, t));
-			
 			vec *=  ofGetLastFrameTime();
 			billboardVels[i] += vec;
 			billboards.getVertices()[i] += billboardVels[i];
@@ -81,21 +74,14 @@ public:
 			{
 				t = ofGetElapsedTimef()*0.99f;
 				billboards.getVertices()[i].x = PARTICLE_SYSTEM_WIDTH+ofRandom(0,100);
-//				billboards.getVertices()[i].y = (PARTICLE_SYSTEM_HEIGHT*0.5)+ofNoise((billboards.getVertex(i).x+distance)/div,t )*PARTICLE_SYSTEM_HEIGHT*0.5;
-				billboards.getVertices()[i].y = (PARTICLE_SYSTEM_HEIGHT*0.5) + ofSignedNoise((billboards.getVertex(i).x)/div, i*1.0f/NUM_BILLBOARDS, billboards.getVertex(i).z/div)*PARTICLE_SYSTEM_HEIGHT*0.5;
 
-//				billboards.getVertices()[i].y += ofSignedNoise((billboards.getVertex(i).x+distance)/div, t*10, billboards.getVertex(i).z/div)*50;
+				billboards.getVertices()[i].y = (PARTICLE_SYSTEM_HEIGHT*0.5) + ofSignedNoise((billboards.getVertex(i).x)/div, i*1.0f/NUM_BILLBOARDS, billboards.getVertex(i).z/div)*PARTICLE_SYSTEM_HEIGHT*0.5;
 			}
 			else if(billboards.getVertices()[i].x>PARTICLE_SYSTEM_WIDTH+5)
 			{
 				t = ofGetElapsedTimef()*0.99f;
 				billboards.getVertices()[i].x = -ofRandom(0,100);
-				
-				
-//				billboards.getVertices()[i].y = (PARTICLE_SYSTEM_HEIGHT*0.5)+ofNoise((billboards.getVertex(i).x+distance)/div,t)*PARTICLE_SYSTEM_HEIGHT*0.5;
-//				billboards.getVertices()[i].y += ofSignedNoise((billboards.getVertex(i).x+distance)/div, t*10, billboards.getVertex(i).z/div)*50;
 				billboards.getVertices()[i].y = (PARTICLE_SYSTEM_HEIGHT*0.5) + ofSignedNoise((billboards.getVertex(i).x)/div, i*1.0f/NUM_BILLBOARDS, billboards.getVertex(i).z/div)*PARTICLE_SYSTEM_HEIGHT*0.5;
-//				billboardVels[i].y += ofSignedNoise((billboards.getVertex(i).x+distance)/div, (t*0.5)+i*1.0f/NUM_BILLBOARDS )*10
 			}
 				
 			
@@ -110,19 +96,13 @@ public:
 	{
 		ofPushMatrix();
 		ofEnableBlendMode(OF_BLENDMODE_ADD);
-		//		ofTranslate(PARTICLE_SYSTEM_WIDTH/2, PARTICLE_SYSTEM_HEIGHT/2, 0);
-		//		ofRotate(cameraRotation.x, 1, 0, 0);
-		//		ofRotate(cameraRotation.y, 0, 1, 0);
-		//		ofRotate(cameraRotation.y, 0, 0, 1);
+
 		
 		// bind the shader so that wee can change the
 		// size of the points via the vert shader
 		
 		for (int p=0; p<NUM_BILLBOARDS; p++){
-			//            if(numConnect>(MAX_PARTICLE*MAX_PARTICLE)*0.5)
-			//            {
-			//                break;
-			//            }
+
             for (int i=0; i<NUM_BILLBOARDS; i++){
                 if (i != p && i%2==0 && p%2==0 || i != p && i%2==1 && p%2==1){
                     
@@ -137,7 +117,7 @@ public:
                         {
                             billboardVels[p].x           +=  (billboards.getVertices()[p].x - billboards.getVertices()[i].x) / R*0.8;
                             billboardVels[p].y           +=  (billboards.getVertices()[p].y - billboards.getVertices()[i].y) / R*0.8;
-//                            billboardVels[p].x           +=  (billboards.getVertices()[p].z - billboards.getVertices()[i].z) / R*0.8;
+
 							billboards.getVertices()[p] += billboardVels[p];
                         }
                         ofPushStyle();
