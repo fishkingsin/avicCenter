@@ -252,7 +252,7 @@ void testApp::draw(){
 	
 #ifdef USE_RENDERMANAGER
 	rm.startOffscreenDraw();
-	ofClear(0);
+	ofClear(255);
 #endif
 
 
@@ -315,7 +315,7 @@ void testApp::draw(){
 	ofPopStyle();
 
     ofPushStyle();
-    ofEnableAlphaBlending();
+    ofDisableAlphaBlending();
     ofSetColor(255);
     rm.drawScreens();
     ofPopStyle();

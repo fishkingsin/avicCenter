@@ -63,10 +63,12 @@ public:
         {
             
             ofLogVerbose("MyImages") << fn << " position : "<< position;
-            ofImage img(fn);
+           
+//            ofImage img(fn);
             images = new ofTexture();
-            images->allocate(img.getWidth(),img.getHeight(),GL_RGBA);
-            images->loadData(img.getPixelsRef());
+             ofLoadImage(*images, fn);
+//            images->allocate(img.getWidth(),img.getHeight(),GL_RGBA);
+//            images->loadData(img.getPixelsRef());
             bLoad = true;
             ofLogVerbose("MyImages")<< fn <<" load";
         }

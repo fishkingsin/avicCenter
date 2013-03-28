@@ -10,7 +10,7 @@
 #include "ofxSyphon.h"
 #endif
 #include "ofxYucolabCommander.h"
-//#define USE_RENDERMANAGER
+#define USE_RENDERMANAGER
 #ifdef USE_RENDERMANAGER
 #include "ofxRenderManager.h"
 #endif
