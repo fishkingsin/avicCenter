@@ -38,6 +38,7 @@ class MyImages
 public:
     MyImages()
     {
+		sequence = NULL;
         images = NULL;
         bLoad = false;
         position.set(0,0);
@@ -49,6 +50,12 @@ public:
         fn = filename;
         load();
     }
+	void setupSequence(string file ,ofPoint point)
+	{
+		sequence= new ofxImageSequence();
+		seqPt.set(point);
+		sequence->loadSequence(file);
+	}
     void load()
     {
         if(!bLoad)
@@ -67,7 +74,10 @@ public:
     {
         if(bDraw)
         {
-            
+            if(sequence!=NULL )
+			{
+				sequence->getFrameForTime(ofGetElapsedTimef())->draw(seqPt);
+			}
 
             if(images!=NULL && ofGetLogLevel()==OF_LOG_VERBOSE)
             {
@@ -105,9 +115,10 @@ public:
     string fn;
     bool bLoad ;
     ofTexture *images;
-    
+	
+    ofxImageSequence *sequence;
     bool bDraw;
-    ofPoint position;
+    ofPoint position,seqPt;
     ofPoint layerPosition;
     int index;
 };

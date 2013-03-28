@@ -159,17 +159,17 @@ public:
             if(layer==0)particleSystem.draw();
             layer++;
         }
-        vector<ofxImageSequence*>::iterator it2;
-
-        
-        int x = 0;
-        for(it2 = sequences.begin() ; it2!=sequences.end() ; it2++)
-        {
-            ofSetColor(255);
-            (*it2)->getFrameForTime(ofGetElapsedTimef())->draw(x+=50,0,50,200);
-        }
-        
-        
+//        vector<ofxImageSequence*>::iterator it2;
+//
+//        
+//        int x = 0;
+//        for(it2 = sequences.begin() ; it2!=sequences.end() ; it2++)
+//        {
+//            ofSetColor(255);
+//            (*it2)->getFrameForTime(ofGetElapsedTimef())->draw(x+=50,0,50,200);
+//        }
+//        
+//        
         
         ofPopStyle();
         
