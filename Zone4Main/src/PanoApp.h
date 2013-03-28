@@ -93,30 +93,41 @@ public:
                                             
                                             //                                            all_images.push_back(new_images->images);
                                             xml.popTag();
+                                            if(xml.pushTag("SEQUENCE",imgIdx))
+                                            {
+                                                string fn = xml.getValue("FILE","");
+                                                ofLogVerbose("XML TAG SEQUENCES") << xml.getValue("FILE","") << " " <<
+                                                xml.getValue("X",0) << " " <<
+                                                xml.getValue("Y",0) << " " ;
+                                                new_images->setupSequence(fn,
+                                                                          ofPoint(xml.getValue("X",0),
+                                                                          xml.getValue("Y",0)));
+                                                xml.popTag();
+                                            }
                                         }
                                     }
                                     xml.popTag();
                                 }
-                                if(xml.pushTag("SEQUENCES"))
-                                {
-                                    int numSeq = xml.getNumTags("SEQUENCE");
-                                    for(int segIdx = 0 ; segIdx < numSeq ; segIdx++)
-                                    {
-                                        if(xml.pushTag("SEQUENCE",segIdx))
-                                        {
-                                            string fn = xml.getValue("FILE","");
-                                            ofLogVerbose("XML TAG SEQUENCES") << xml.getValue("FILE","") << " " <<
-                                            xml.getValue("X",0) << " " <<
-                                            xml.getValue("Y",0) << " " ;
-                                            ofxImageSequence *newSeq = new ofxImageSequence();
-                                            newSeq->loadSequence(fn);
-                                            sequences.push_back(newSeq);
-                                            
-                                            xml.popTag();
-                                        }
-                                    }
-                                    xml.popTag();
-                                }
+//                                if(xml.pushTag("SEQUENCES"))
+//                                {
+//                                    int numSeq = xml.getNumTags("SEQUENCE");
+//                                    for(int segIdx = 0 ; segIdx < numSeq ; segIdx++)
+//                                    {
+//                                        if(xml.pushTag("SEQUENCE",segIdx))
+//                                        {
+//                                            string fn = xml.getValue("FILE","");
+//                                            ofLogVerbose("XML TAG SEQUENCES") << xml.getValue("FILE","") << " " <<
+//                                            xml.getValue("X",0) << " " <<
+//                                            xml.getValue("Y",0) << " " ;
+//                                            ofxImageSequence *newSeq = new ofxImageSequence();
+//                                            newSeq->loadSequence(fn);
+//                                            sequences.push_back(newSeq);
+//                                            
+//                                            xml.popTag();
+//                                        }
+//                                    }
+//                                    xml.popTag();
+//                                }
                                 
                                 
                                 xml.popTag();

@@ -76,7 +76,7 @@ public:
         {
             if(sequence!=NULL )
 			{
-				sequence->getFrameForTime(ofGetElapsedTimef())->draw(seqPt);
+				sequence->getFrameForTime(ofGetElapsedTimef())->draw(seqPt+layerPosition);
 			}
 
             if(images!=NULL && ofGetLogLevel()==OF_LOG_VERBOSE)

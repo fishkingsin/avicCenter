@@ -150,14 +150,12 @@
                     <X>0</X>
                     <Y>0</Y>
                 </IMAGE>
-            </IMAGES>
-            <SEQUENCES>
                 <SEQUENCE>
                     <FILE>images/category/cat01/imagesequence/LEED</FILE>
                     <X>0</X>
                     <Y>0</Y>
                 </SEQUENCE>
-            </SEQUENCES>
+            </IMAGES>
         </PAGE>
         <PAGE>
             <IMAGES>
@@ -242,45 +240,43 @@
                     <X>13824</X>
                     <Y>0</Y>
                 </IMAGE>
-            </IMAGES>
-            <SEQUENCES>
                 <SEQUENCE>
                     <INDEX>7</INDEX>
                     <FILE>images/category/cat04/imagesequence/cat04_a-07</FILE>
-                    <X>18432</X>
+                    <X>13824</X>
                     <Y>0</Y>
                 </SEQUENCE>
                 <SEQUENCE>
                     <INDEX>8</INDEX>
                     <FILE>images/category/cat04/imagesequence/cat04_b-07</FILE>
-                    <X>18432</X>
+                    <X>13824</X>
                     <Y>0</Y>
                 </SEQUENCE>
                 <SEQUENCE>
                     <INDEX>9</INDEX>
                     <FILE>images/category/cat04/imagesequence/cat04_c-07</FILE>
-                    <X>18432</X>
+                    <X>13824</X>
                     <Y>0</Y>
                 </SEQUENCE>
                 <SEQUENCE>
                     <INDEX>10</INDEX>
                     <FILE>images/category/cat04/imagesequence/cat04_d-07</FILE>
-                    <X>18432</X>
+                    <X>13824</X>
                     <Y>0</Y>
                 </SEQUENCE>
                 <SEQUENCE>
                     <INDEX>11</INDEX>
                     <FILE>images/category/cat04/imagesequence/cat04_e-07</FILE>
-                    <X>18432</X>
+                    <X>13824</X>
                     <Y>0</Y>
                 </SEQUENCE>
                 <SEQUENCE>
                     <INDEX>12</INDEX>
                     <FILE>images/category/cat04/imagesequence/cat04_f-07</FILE>
-                    <X>18432</X>
+                    <X>13824</X>
                     <Y>0</Y>
                 </SEQUENCE>
-            </SEQUENCES>
+            </IMAGES>
         </PAGE>
         <PAGE>
             <IMAGES>
