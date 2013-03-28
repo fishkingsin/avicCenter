@@ -192,13 +192,14 @@ public:
         {
             case OF_KEY_LEFT:
             {
+               
                 if(pageIndex>0)
                 {
                     if(layers[2]->shiftCategory(-1))
                     {
                         pageIndex--;
                         vector<Layer*>::iterator it;
-                        
+                         particleSystem.keyPressed(key);
                         for(it = layers.begin() ; it!=layers.end() ; it++)
                         {
                             
@@ -210,11 +211,16 @@ public:
                 break;
             case OF_KEY_RIGHT:
             {
+                
                 if(pageIndex<5)
                 {
                     if(layers[2]->shiftCategory(1))
                     {
-                        if(pageIndex<4)pageIndex++;
+                        if(pageIndex<4)
+                        {
+                            pageIndex++;
+                            particleSystem.keyPressed(key);
+                        }
                         vector<Layer*>::iterator it;
                         
                         for(it = layers.begin() ; it!=layers.end() ; it++)
@@ -250,10 +256,21 @@ public:
                     
                     
                     if (im[k]->index ==index) {
+
                         p[j]->index = k;
                         ofLogVerbose() <<"im[k]->index " << im[k]->index;
                         ofLogVerbose() <<"p[j]->index " << p[j]->index;
                         vector <Layer*> :: iterator it;
+                        if(layers[2]->currentPage<j)
+                            
+                        {
+                            particleSystem.keyPressed(OF_KEY_RIGHT);
+
+                        }
+                        else
+                        {
+                            particleSystem.keyPressed(OF_KEY_LEFT);
+                        }
                         for(it = layers.begin() ; it!=layers.end() ; it++)
                         {
                             

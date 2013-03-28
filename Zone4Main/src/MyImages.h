@@ -55,6 +55,7 @@ public:
 		sequence= new ofxImageSequence();
 		seqPt.set(point);
 		sequence->loadSequence(file);
+        sequence->setFrameRate(30);
 	}
     void load()
     {
